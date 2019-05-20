@@ -25,6 +25,7 @@ namespace FlashCard {
             this.ShowHalf(front);
          else
             this.ShowAll();
+         Settings.Default.Save();
       }
 
       private void ShowAll() {
@@ -62,10 +63,6 @@ namespace FlashCard {
             return;
          front = !front;
          this.ShowHalf(front);
-      }
-
-      private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
-         Settings.Default.Save();
       }
    }
 }

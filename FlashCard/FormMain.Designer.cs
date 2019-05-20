@@ -89,7 +89,6 @@
          this.Controls.Add(this.btnPrev);
          this.Name = "FormMain";
          this.Text = "Flash Card";
-         this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
          this.ResumeLayout(false);
          this.PerformLayout();
 
