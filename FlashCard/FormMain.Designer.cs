@@ -88,7 +88,10 @@
          this.Controls.Add(this.btnNext);
          this.Controls.Add(this.btnPrev);
          this.Name = "FormMain";
+         this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
          this.Text = "Flash Card";
+         this.Move += new System.EventHandler(this.FormMain_Move);
+         this.Resize += new System.EventHandler(this.FormMain_Resize);
          this.ResumeLayout(false);
          this.PerformLayout();
 

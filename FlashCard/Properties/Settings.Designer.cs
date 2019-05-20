@@ -34,5 +34,29 @@ namespace FlashCard.Properties {
                 this["lastIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point windowLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["windowLocation"]));
+            }
+            set {
+                this["windowLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size windowSize {
+            get {
+                return ((global::System.Drawing.Size)(this["windowSize"]));
+            }
+            set {
+                this["windowSize"] = value;
+            }
+        }
     }
 }

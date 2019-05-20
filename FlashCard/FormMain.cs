@@ -14,6 +14,8 @@ namespace FlashCard {
    public partial class FormMain : Form {
       public FormMain() {
          InitializeComponent();
+         this.Location = Settings.Default.windowLocation;
+         this.Size = Settings.Default.windowSize;
          this.ReadBook();
          this.ShowCard();
       }
@@ -63,6 +65,16 @@ namespace FlashCard {
             return;
          front = !front;
          this.ShowHalf(front);
+      }
+
+      private void FormMain_Move(object sender, EventArgs e) {
+         Settings.Default.windowLocation = this.Location;
+         Settings.Default.Save();
+      }
+
+      private void FormMain_Resize(object sender, EventArgs e) {
+         Settings.Default.windowSize = this.Size;
+         Settings.Default.Save();
       }
    }
 }
