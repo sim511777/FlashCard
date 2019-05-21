@@ -61,15 +61,51 @@ namespace FlashCard.Properties {
         }
         
         /// <summary>
-        ///   접두사 pro- 1.앞으로(forward) 2.찬성하여(in favor) || progress 전진(하다);진보(하다) || propose 제안하다;청혼하다 || produce 생산[제조]하다;농산물 || protect 보호하다,막다,지키다 || pros and cons 찬반양론,장단점
-        ///접두사 pre- 미리, 먼저(before, beforehand) || predict 예언하다,예측[예상]하다 || precaution 조심,경계;예방책 || premature 시기상조의,조급한;너무이른,조기의 || preview 미리보기;시사(회),시연;시연을보다[보이다]
-        ///접두사 fore- ~전에(before) || forehead 이마 || forefather 선조,조상 || foremost 으뜸가는,중요한;선두의,맨앞[먼저]의 || foresee 예견[예지]하다
-        ///접두사 post- 뒤에, 후에(after) || postpone 연기하다,뒤로미루다 || postscript (편지의)추신;(책,논문등의)후기
-        ///접두사 [나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static string VocaRoot {
+        internal static byte[] C_VOCA {
             get {
-                return ResourceManager.GetString("VocaRoot", resourceCulture);
+                object obj = ResourceManager.GetObject("C_VOCA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   @CHARSET &quot;UTF-8&quot;;
+        ///* {
+        ///font-family: &quot;RixGo_Pro&quot;, &quot;HelveticaNeue&quot;, Helvetica, Arial, sans-serif;
+        ///}
+        ///.debugBox {
+        ///	display:inline-block;
+        ///	width:330px;
+        ///}
+        ///.debugTitle {
+        ///background:white;color:black;
+        ///Z-webkit-box-shadow:0px 0px 2px black;
+        ///border:2px solid blue;   
+        ///}
+        ///body {
+        ///color: #828282;
+        ///margin:0px;
+        ///-webkit-user-select:none;
+        ///-webkit-user-drag: none;
+        ///-webkit-user-select:none;
+        ///background-repeat:no-repeat;
+        ///background:#F5F5F5;
+        ///}
+        ///td {
+        ///	font-size:20px;
+        ///}
+        ///.exaEng {
+        ///font-size:24px;	
+        ///}
+        ///.exaEng b {
+        ///color:#F03C1E;
+        ///font-weigh[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string main_study {
+            get {
+                return ResourceManager.GetString("main_study", resourceCulture);
             }
         }
     }
