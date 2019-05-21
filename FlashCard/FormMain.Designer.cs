@@ -65,7 +65,6 @@
          this.lblCard.Size = new System.Drawing.Size(551, 331);
          this.lblCard.TabIndex = 2;
          this.lblCard.Text = "Flash Card";
-         this.lblCard.Click += new System.EventHandler(this.LblCard_Click);
          // 
          // chkHideAnswer
          // 
@@ -103,6 +102,6 @@
       private System.Windows.Forms.Button btnNext;
       private System.Windows.Forms.Label lblCard;
       private System.Windows.Forms.CheckBox chkHideAnswer;
-   }
+    }
 }
 

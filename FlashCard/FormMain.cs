@@ -11,71 +11,47 @@ using System.Windows.Forms;
 using FlashCard.Properties;
 
 namespace FlashCard {
-   public partial class FormMain : Form {
-      public FormMain() {
-         InitializeComponent();
-         this.Location = Settings.Default.windowLocation;
-         this.Size = Settings.Default.windowSize;
-         this.ReadBook();
-         this.ShowCard();
-         this.TopMost = true;
-      }
+    public partial class FormMain : Form {
+        public FormMain() {
+            InitializeComponent();
+            this.Location = Settings.Default.windowLocation;
+            this.Size = Settings.Default.windowSize;
+            this.Activate();
+            this.ReadBook();
+            this.ShowCard();
+        }
 
-      bool front = true;
-      private void ShowCard() {
-         front = true;
-         if (this.chkHideAnswer.Checked)
-            this.ShowHalf(front);
-         else
-            this.ShowAll();
-         Settings.Default.Save();
-      }
+        private string[] cards;
+        private void ReadBook() {
+            var allText = Properties.Resources.VocaRoot;
+            cards = allText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        }
 
-      private void ShowAll() {
-         var lines = this.cards[Settings.Default.lastIndex].Split(new string[] { " || " }, StringSplitOptions.RemoveEmptyEntries);
-         this.lblCard.Text = Settings.Default.lastIndex.ToString() + ". " + string.Join("\r\n", lines);
-      }
+        private void ShowCard() {
+            var lines = this.cards[Settings.Default.lastIndex].Split(new string[] { " || " }, StringSplitOptions.RemoveEmptyEntries);
+            this.lblCard.Text = Settings.Default.lastIndex.ToString() + ". " + string.Join("\r\n", lines);
+        }
 
-      private void ShowHalf(bool front) {
-         var lines = this.cards[Settings.Default.lastIndex].Split(new string[] { " || " }, StringSplitOptions.RemoveEmptyEntries);
-         if (front)
-            this.lblCard.Text = Settings.Default.lastIndex.ToString() + ". " + lines[0];
-         else {
-            this.lblCard.Text = string.Join("\r\n", lines.Skip(1).ToArray());
-         }
-      }
+        private void BtnNext_Click(object sender, EventArgs e) {
+            Settings.Default.lastIndex = (Settings.Default.lastIndex + 1) % this.cards.Length;
+            Settings.Default.Save();
+            this.ShowCard();
+        }
 
-      string[] cards;
-      private void ReadBook() {
-         var allText = Properties.Resources.VocaRoot;
-         cards = allText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-      }
+        private void BtnPrev_Click(object sender, EventArgs e) {
+            Settings.Default.lastIndex = (Settings.Default.lastIndex - 1 + this.cards.Length) % this.cards.Length;
+            Settings.Default.Save();
+            this.ShowCard();
+        }
 
-      private void BtnNext_Click(object sender, EventArgs e) {
-         Settings.Default.lastIndex = (Settings.Default.lastIndex + 1) % this.cards.Length;
-         this.ShowCard();
-      }
+        private void FormMain_Move(object sender, EventArgs e) {
+            Settings.Default.windowLocation = this.Location;
+            Settings.Default.Save();
+        }
 
-      private void BtnPrev_Click(object sender, EventArgs e) {
-         Settings.Default.lastIndex = (Settings.Default.lastIndex - 1 + this.cards.Length) % this.cards.Length;
-         this.ShowCard();
-      }
-
-      private void LblCard_Click(object sender, EventArgs e) {
-         if (this.chkHideAnswer.Checked == false)
-            return;
-         front = !front;
-         this.ShowHalf(front);
-      }
-
-      private void FormMain_Move(object sender, EventArgs e) {
-         Settings.Default.windowLocation = this.Location;
-         Settings.Default.Save();
-      }
-
-      private void FormMain_Resize(object sender, EventArgs e) {
-         Settings.Default.windowSize = this.Size;
-         Settings.Default.Save();
-      }
-   }
+        private void FormMain_Resize(object sender, EventArgs e) {
+            Settings.Default.windowSize = this.Size;
+            Settings.Default.Save();
+        }
+    }
 }
