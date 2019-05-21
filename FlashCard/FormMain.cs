@@ -18,6 +18,7 @@ namespace FlashCard {
          this.Size = Settings.Default.windowSize;
          this.ReadBook();
          this.ShowCard();
+         this.TopMost = true;
       }
 
       bool front = true;
