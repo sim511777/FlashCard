@@ -3,10 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Json;
 
 namespace FlashCard {
+    public abstract class Voca {
+        public abstract string GetTitle();
+        public abstract string GetHtml();
+        public static Voca[] ReadBook(Type type, byte[] bytes) {
+            var allText = Encoding.UTF8.GetString(bytes);
+            var ser = new DataContractJsonSerializer(type);
+            using (var ms = new MemoryStream(bytes)) {
+                return (Voca[])ser.ReadObject(ms);
+            }
+        }
+    }
+    
     // 능률보카어원 2013
-    public class EfficiencyVoca {
+    public class EfficiencyVoca : Voca {
         public int VOCA_ID { get; set; }            // Voca No.
         public int DAY_NO { get; set; }             // Day No.
         public int PREFIX_GRP { get; set; }         // 어원 그룹 No
@@ -20,11 +34,42 @@ namespace FlashCard {
         public string DERIVATIVE_TAG { get; set; }  // 파생어 태그
         public string SENTENCE_TAG { get; set; }    // 예문 태그
         public string MEANING_QUICK { get; set; }   // 뜻 빠른
-        public int SOUND_ORD { get; set; }          // 
+        public int SOUND_ORD { get; set; }          //
+
+        public override string GetTitle() {
+            return string.Format("{0}. {1} : {2}", this.VOCA_ID, this.VOCABULARY, this.MEANING_INDEX);
+        }
+        public override string GetHtml() {
+            string html =
+$@"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
+    <title>Document</title>
+<style>
+{Properties.Resources.main_study}
+</style>
+</head>
+<body>
+    <table width=""100%"">
+        <tr>
+            <td width=""50%""><font size=""6"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font>{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
+            <td>{this.ORIGIN_EXP_TAG}</td>
+        </tr>
+        <tr>
+            <td colspan=""2"">{(this.SENTENCE_TAG.Replace("opacity:0","opacity:100"))}</td>
+        </tr>
+    </table>
+</body>
+</html>";
+            return html;
+        }
     }
 
     // 그림어원 중학
-    public class DrawingVocaMs {
+    public class DrawingVocaMs : Voca {
          public string CSNUM { get; set; }          // Voca No.
          public string SCNUM { get; set; }          // 챕터 No.
          public string UNITNUM { get; set; }        // 단원 No.
@@ -51,10 +96,52 @@ namespace FlashCard {
          public string WORD_PHONETICS { get; set; } // 단어 발음기호
          public string WRONGNUM { get; set; }       // 오답 횟수
          public string BOOKMARK { get; set; }       // 북마크
+        public override string GetTitle() {
+            return string.Format("{0}. {1} : {2}", this.CSNUM, this.WORD_EN1, this.Q_CORRECT);
+        }
+        public override string GetHtml() {
+            string wordRoot = this.CSTITLE.Replace("\t \t", " ");
+            string wordEntry = $"{this.WORD_EN1} [{this.WORD_PHONETICS}]";
+            string meaning = this.WORD_KR2;
+            var etyEngParts = WORD_EN2.Split('^');
+            var etyEngParts2 = etyEngParts.Select(word=>word.StartsWith("&") ? "<font color=\"red\">" + word.TrimStart('&') + "</font>" : word);
+            var etyEng = string.Join(" + ", etyEngParts2);
+            var etyKorParts = WORD_KR1.Split('^');
+            var etyKorParts2 = etyKorParts.Select(word=>word.StartsWith("&") ? "<font color=\"red\">" + word.TrimStart('&') + "</font>" : word);
+            var etyKor = string.Join(" + ", etyKorParts2);
+            var ex1 = this.EX_EN != string.Empty ? this.EX_EN.Replace(this.EX_EN_COLOR, "<font color=\"red\">"+this.EX_EN_COLOR+"</font>") : string.Empty;
+            var ex1_kor = this.EX_KR;
+            var ex2 = this.EX_EN2 != string.Empty ? this.EX_EN2.Replace(this.EX_EN_COLOR2, "<font color=\"red\">"+this.EX_EN_COLOR2+"</font>") : string.Empty;
+            var ex2_kor = this.EX_KR2;
+            string html =
+$@"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
+    <title>Document</title>
+</head>
+<body style=""font-size:24px;"">
+{wordEntry}<br/>
+{meaning}<br/>
+<br/>
+{wordRoot}<br/>
+{etyEng}<br/>
+{etyKor}<br/>
+<br/>
+{ex2}<br/>
+{ex2_kor}<br/>
+{ex1}<br/>
+{ex1_kor}<br/>
+</body>
+</html>";
+            return html;
+        }
     }
 
     // 그림어원 수능, 토익
-    public class DrawingVoca {
+    public class DrawingVoca : Voca {
         public int CSNUM { get; set; }              // Voca No.
         public int SCNUM { get; set; }              // 챕터 No.
         public int UNITNUM { get; set; }            // 단원 No.
@@ -78,11 +165,70 @@ namespace FlashCard {
         public string WORD_PHONETICS { get; set; }  // 단어 발음기호
         public int WRONGNUM { get; set; }           // 오답 횟수
         public int BOOKMARK { get; set; }           // 북마크
+        public override string GetTitle() {
+            return string.Format("{0}. {1} : {2}", this.CSNUM, this.WORD_EN1, this.Q_CORRECT);
+        }
+        public override string GetHtml() {
+            string wordRoot = this.CSTITLE.Replace("\t \t", " ");
+            string wordEntry = $"{this.WORD_EN1} [{this.WORD_PHONETICS}]";
+            string meaning = this.WORD_KR2;
+            var etyEngParts = WORD_EN2.Split('^');
+            var etyEngParts2 = etyEngParts.Select(word=>word.StartsWith("&") ? "<font color=\"red\">" + word.TrimStart('&') + "</font>" : word);
+            var etyEng = string.Join(" + ", etyEngParts2);
+            var etyKorParts = WORD_KR1.Split('^');
+            var etyKorParts2 = etyKorParts.Select(word=>word.StartsWith("&") ? "<font color=\"red\">" + word.TrimStart('&') + "</font>" : word);
+            var etyKor = string.Join(" + ", etyKorParts2);
+            var ex1 = this.EX_EN != string.Empty ? this.EX_EN.Replace(this.EX_EN_COLOR, "<font color=\"red\">"+this.EX_EN_COLOR+"</font>") : string.Empty;
+            var ex1_kor = this.EX_KR;
+            string html =
+$@"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
+    <title>Document</title>
+</head>
+<body style=""font-size:24px;"">
+{wordEntry}<br/>
+{meaning}<br/>
+<br/>
+{wordRoot}<br/>
+{etyEng}<br/>
+{etyKor}<br/>
+<br/>
+{ex1}<br/>
+{ex1_kor}<br/>
+</body>
+</html>";
+            return html;
+        }
     }
 
     // 구텐베르크 최빈도 어휘 13000
-    public class Voca13000 {
+    public class Voca13000 : Voca {
+        public int Id { get; set; }                 // Id
         public string Word { get; set; }            // 단어
         public string Meaning { get; set; }         // 뜻
+                public override string GetTitle() {
+            return string.Format("{0}. {1} : {2}", this.Id, this.Word, this.Meaning);
+        }
+        public override string GetHtml() {
+            string html =
+$@"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
+    <title>Document</title>
+</head>
+<body style=""font-size:24px;"">
+{this.Word}<br/>
+{this.Meaning}
+</body>
+</html>";
+            return html;
+        }
     }
 }

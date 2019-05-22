@@ -58,5 +58,17 @@ namespace FlashCard.Properties {
                 this["windowSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int deckIndex {
+            get {
+                return ((int)(this["deckIndex"]));
+            }
+            set {
+                this["deckIndex"] = value;
+            }
+        }
     }
 }

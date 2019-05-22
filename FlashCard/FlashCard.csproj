@@ -82,15 +82,13 @@
     <None Include="Resources\DrawingVoca_MiddleSchool.json" />
     <None Include="Resources\DrawingVoca_Toeic.json" />
     <None Include="Resources\EffeciencyVoca.json" />
+    <None Include="Resources\Voca13000.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\main-study.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Voca13000.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
