@@ -59,11 +59,8 @@ $@"<!DOCTYPE html>
 <body>
     <table width=""100%"">
         <tr>
-            <td><font size=""6"">{(card.PREFIX_ORD == 0 ? card.VOCABULARY : card.VOCABULARY_TAG)}</font>{card.ORIGIN_APPENDIX}{card.MEANING_TAG}</td>
+            <td width=""50%""><font size=""6"">{(card.PREFIX_ORD == 0 ? card.VOCABULARY : card.VOCABULARY_TAG)}</font>{card.ORIGIN_APPENDIX}{card.MEANING_TAG}{card.DERIVATIVE_TAG}</td>
             <td>{card.ORIGIN_EXP_TAG}</td>
-        </tr>
-        <tr>
-            <td colspan=""2"">{card.DERIVATIVE_TAG}</td>
         </tr>
         <tr>
             <td colspan=""2"">{(card.SENTENCE_TAG.Replace("opacity:0","opacity:100"))}</td>
