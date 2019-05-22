@@ -31,19 +31,19 @@ namespace FlashCard {
             this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
-        Card[] cards;
+        EfficiencyVoca[] cards;
         private void ReadBook() {
-            var bytes = Properties.Resources.C_VOCA;
+            var bytes = Properties.Resources.EffeciencyVoca;
             var allText = Encoding.UTF8.GetString(bytes);
-            var ser = new DataContractJsonSerializer(typeof(Card[]));
+            var ser = new DataContractJsonSerializer(typeof(EfficiencyVoca[]));
             using (var ms = new MemoryStream(bytes)) {
-                this.cards = (Card[])ser.ReadObject(ms);
+                this.cards = (EfficiencyVoca[])ser.ReadObject(ms);
             }
             var wordList = this.cards.Select(card => string.Format("{0}. {1} : {2}", card.VOCA_ID, card.VOCABULARY, card.MEANING_INDEX)).ToArray();
             this.cbxCard.Items.AddRange(wordList);
         }
 
-        private string GetHtml(Card card) {
+        private string GetHtml(EfficiencyVoca card) {
             string html =
 $@"<!DOCTYPE html>
 <html lang=""en"">

@@ -19,7 +19,7 @@ namespace FlashCard.Properties {
     // 클래스에서 자동으로 생성되었습니다.
     // 멤버를 추가하거나 제거하려면 .ResX 파일을 편집한 다음 /str 옵션을 사용하여 ResGen을
     // 다시 실행하거나 VS 프로젝트를 다시 빌드하십시오.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,8 +47,8 @@ namespace FlashCard.Properties {
         }
         
         /// <summary>
-        ///   이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대해 현재 스레드의 CurrentUICulture 속성을
-        ///   재정의합니다.
+        ///   이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+        ///   속성을 재정의합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -63,9 +63,39 @@ namespace FlashCard.Properties {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] C_VOCA {
+        internal static byte[] DrawingVoca_Csat {
             get {
-                object obj = ResourceManager.GetObject("C_VOCA", resourceCulture);
+                object obj = ResourceManager.GetObject("DrawingVoca_Csat", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] DrawingVoca_MiddleSchool {
+            get {
+                object obj = ResourceManager.GetObject("DrawingVoca_MiddleSchool", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] DrawingVoca_Toeic {
+            get {
+                object obj = ResourceManager.GetObject("DrawingVoca_Toeic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] EffeciencyVoca {
+            get {
+                object obj = ResourceManager.GetObject("EffeciencyVoca", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -99,13 +129,42 @@ namespace FlashCard.Properties {
         ///.exaEng {
         ///font-size:24px;	
         ///}
-        ///.exaEng b {
-        ///color:#F03C1E;
-        ///font-weigh[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///.exaEng b[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string main_study {
             get {
                 return ResourceManager.GetString("main_study", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   the	그, 그럴수록, 더욱더
+        ///of	~의, ~으로부터, ~을
+        ///and	그리고, ~ 및 ~, ~하고, 또
+        ///to	~에, ~까지, ~에 대하여, table of organization
+        ///in	~안에, ~으로, ~에
+        ///I	나, 나는, 내가
+        ///that	저것, 것, 그, 다른
+        ///was	be의 직설법·과거·1인칭 및 3인칭·단수형
+        ///his	그의, 그 사람의, 그의 것, 신의
+        ///he	그는, 그것은, 남자, 그 사람은, 신
+        ///it	그것, 이것, 그런
+        ///with	함께, ~때문에
+        ///is	be의 3인칭·단수·직설법·현재형, 모음 앞에서의 iso-의 별형, island
+        ///for	~을 위하여, ~을 기념하여, ~용의
+        ///as	~처럼, ~으로서, ~하면서
+        ///had	have의 과거·과거 분사형
+        ///you	당신, 너, 여러분, 자네
+        ///not	않다, 아니다, 없다
+        ///be	~이다, 있다, 존재하다
+        ///her	그녀의, 그녀가, 그녀를, 여자, 그녀에게
+        ///on	위에, 계속하여, ~에, ~의 표면에
+        ///at	~에, ~으로, ~에서
+        ///by	~에 의[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Voca13000 {
+            get {
+                return ResourceManager.GetString("Voca13000", resourceCulture);
             }
         }
     }
