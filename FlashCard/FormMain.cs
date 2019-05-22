@@ -41,9 +41,8 @@ namespace FlashCard {
         }
 
         private string GetHtml(Card card) {
-            string html = string.Format(
-@"
-<!DOCTYPE html>
+            string html =
+$@"<!DOCTYPE html>
 <html lang=""en"">
 <head>
     <meta charset=""UTF-8"">
@@ -51,33 +50,24 @@ namespace FlashCard {
     <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
     <title>Document</title>
 <style>
-{14}
+{Properties.Resources.main_study}
 </style>
 </head>
 <body>
-{0}
-<font size=""6"">{5}</font>  {9}<br/>
-{6}<br/>
-{8}<br/>
-{10}<br/>
-{11}<br/>
+    <table width=""100%"">
+        <tr>
+            <td><font size=""6"">{(card.PREFIX_ORD == 0 ? card.VOCABULARY : card.VOCABULARY_TAG)}</font>{card.ORIGIN_APPENDIX}{card.MEANING_TAG}</td>
+            <td>{card.ORIGIN_EXP_TAG}</td>
+        </tr>
+        <tr>
+            <td colspan=""2"">{card.DERIVATIVE_TAG}</td>
+        </tr>
+        <tr>
+            <td colspan=""2"">{(card.SENTENCE_TAG.Replace("opacity:0","opacity:100"))}</td>
+        </tr>
+    </table>
 </body>
-</html>",
-            card.VOCA_ID,
-            card.DAY_NO,
-            card.PREFIX_GRP,
-            card.PREFIX_ORD,
-            card.VOCABULARY,
-            card.PREFIX_ORD == 0 ? card.VOCABULARY : card.VOCABULARY_TAG,
-            card.MEANING_TAG,
-            card.MEANING_INDEX,
-            card.ORIGIN_EXP_TAG,
-            card.ORIGIN_APPENDIX,
-            card.DERIVATIVE_TAG,
-            card.SENTENCE_TAG.Replace("opacity:0","opacity:100"),
-            card.MEANING_QUICK,
-            card.SOUND_ORD,
-            Properties.Resources.main_study);
+</html>";
             return html;
         }
 
@@ -85,6 +75,7 @@ namespace FlashCard {
             var card = this.cards[Settings.Default.lastIndex];
             var html = GetHtml(card);
             this.browser.DocumentText = html;
+            this.Text = string.Format("{0}. {1} : {2}", card.VOCA_ID, card.VOCABULARY, card.MEANING_INDEX);
         }
 
         private void BtnNext_Click(object sender, EventArgs e) {
