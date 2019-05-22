@@ -25,7 +25,7 @@ namespace FlashCard {
 
             this.Location = Settings.Default.windowLocation;
             this.Size = Settings.Default.windowSize;
-            this.Activate();
+            this.TopMost = true;
             this.ReadBook();
             this.ShowCard();
             this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
