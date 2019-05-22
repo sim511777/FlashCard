@@ -27,6 +27,7 @@
          this.btnNext = new System.Windows.Forms.Button();
          this.browser = new System.Windows.Forms.WebBrowser();
          this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+         this.cbxCard = new System.Windows.Forms.ComboBox();
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
@@ -39,7 +40,7 @@
          this.btnPrev.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
          this.btnPrev.Location = new System.Drawing.Point(0, 0);
          this.btnPrev.Name = "btnPrev";
-         this.btnPrev.Size = new System.Drawing.Size(72, 154);
+         this.btnPrev.Size = new System.Drawing.Size(72, 172);
          this.btnPrev.TabIndex = 1;
          this.btnPrev.Text = "<=";
          this.btnPrev.UseVisualStyleBackColor = true;
@@ -51,7 +52,7 @@
          this.btnNext.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
          this.btnNext.Location = new System.Drawing.Point(0, 0);
          this.btnNext.Name = "btnNext";
-         this.btnNext.Size = new System.Drawing.Size(72, 166);
+         this.btnNext.Size = new System.Drawing.Size(72, 186);
          this.btnNext.TabIndex = 1;
          this.btnNext.Text = "=>";
          this.btnNext.UseVisualStyleBackColor = true;
@@ -60,16 +61,16 @@
          // browser
          // 
          this.browser.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.browser.Location = new System.Drawing.Point(0, 0);
+         this.browser.Location = new System.Drawing.Point(0, 20);
          this.browser.MinimumSize = new System.Drawing.Size(20, 20);
          this.browser.Name = "browser";
-         this.browser.Size = new System.Drawing.Size(732, 324);
+         this.browser.Size = new System.Drawing.Size(739, 342);
          this.browser.TabIndex = 4;
          // 
          // splitContainer1
          // 
          this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Right;
-         this.splitContainer1.Location = new System.Drawing.Point(732, 0);
+         this.splitContainer1.Location = new System.Drawing.Point(739, 0);
          this.splitContainer1.Name = "splitContainer1";
          this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
          // 
@@ -80,16 +81,28 @@
          // splitContainer1.Panel2
          // 
          this.splitContainer1.Panel2.Controls.Add(this.btnNext);
-         this.splitContainer1.Size = new System.Drawing.Size(72, 324);
-         this.splitContainer1.SplitterDistance = 154;
+         this.splitContainer1.Size = new System.Drawing.Size(72, 362);
+         this.splitContainer1.SplitterDistance = 172;
          this.splitContainer1.TabIndex = 5;
+         // 
+         // cbxCard
+         // 
+         this.cbxCard.Dock = System.Windows.Forms.DockStyle.Top;
+         this.cbxCard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.cbxCard.FormattingEnabled = true;
+         this.cbxCard.Location = new System.Drawing.Point(0, 0);
+         this.cbxCard.Name = "cbxCard";
+         this.cbxCard.Size = new System.Drawing.Size(739, 20);
+         this.cbxCard.TabIndex = 6;
+         this.cbxCard.SelectionChangeCommitted += new System.EventHandler(this.cbxCard_SelectionChangeCommitted);
          // 
          // FormMain
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(804, 324);
+         this.ClientSize = new System.Drawing.Size(811, 362);
          this.Controls.Add(this.browser);
+         this.Controls.Add(this.cbxCard);
          this.Controls.Add(this.splitContainer1);
          this.Name = "FormMain";
          this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -110,6 +123,7 @@
       private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.WebBrowser browser;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ComboBox cbxCard;
     }
 }
 

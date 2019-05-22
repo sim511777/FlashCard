@@ -28,6 +28,7 @@ namespace FlashCard {
             this.Activate();
             this.ReadBook();
             this.ShowCard();
+            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         Card[] cards;
@@ -38,6 +39,8 @@ namespace FlashCard {
             using (var ms = new MemoryStream(bytes)) {
                 this.cards = (Card[])ser.ReadObject(ms);
             }
+            var wordList = this.cards.Select(card => string.Format("{0}. {1} : {2}", card.VOCA_ID, card.VOCABULARY, card.MEANING_INDEX)).ToArray();
+            this.cbxCard.Items.AddRange(wordList);
         }
 
         private string GetHtml(Card card) {
@@ -75,19 +78,20 @@ $@"<!DOCTYPE html>
             var card = this.cards[Settings.Default.lastIndex];
             var html = GetHtml(card);
             this.browser.DocumentText = html;
-            this.Text = string.Format("{0}. {1} : {2}", card.VOCA_ID, card.VOCABULARY, card.MEANING_INDEX);
         }
 
         private void BtnNext_Click(object sender, EventArgs e) {
             Settings.Default.lastIndex = (Settings.Default.lastIndex + 1) % this.cards.Length;
             Settings.Default.Save();
             this.ShowCard();
+            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void BtnPrev_Click(object sender, EventArgs e) {
             Settings.Default.lastIndex = (Settings.Default.lastIndex - 1 + this.cards.Length) % this.cards.Length;
             Settings.Default.Save();
             this.ShowCard();
+            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void FormMain_Move(object sender, EventArgs e) {
@@ -98,6 +102,12 @@ $@"<!DOCTYPE html>
         private void FormMain_Resize(object sender, EventArgs e) {
             Settings.Default.windowSize = this.Size;
             Settings.Default.Save();
+        }
+
+        private void cbxCard_SelectionChangeCommitted(object sender, EventArgs e) {
+            Settings.Default.lastIndex = this.cbxCard.SelectedIndex;
+            Settings.Default.Save();
+            this.ShowCard();
         }
     }
 }
