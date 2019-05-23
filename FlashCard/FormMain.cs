@@ -22,10 +22,12 @@ namespace FlashCard {
             if (pt.Y < 0)
                 pt.Y = 0;
             Settings.Default.windowLocation = pt;
-
             this.Location = Settings.Default.windowLocation;
             this.Size = Settings.Default.windowSize;
+            this.chkAutoChange.Checked = Settings.Default.autoChange;
             this.TopMost = true;
+            if (this.chkAutoChange.Checked)
+                Settings.Default.lastIndex = (Settings.Default.lastIndex + 1);
             this.ChangeDeck();
         }
 
@@ -92,6 +94,11 @@ namespace FlashCard {
         private void CbxDeck_SelectionChangeCommitted(object sender, EventArgs e) {
             Settings.Default.deckIndex = this.cbxDeck.SelectedIndex;
             this.ChangeDeck();
+        }
+
+        private void chkAutoChange_Click(object sender, EventArgs e) {
+            Properties.Settings.Default.autoChange = this.chkAutoChange.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }
