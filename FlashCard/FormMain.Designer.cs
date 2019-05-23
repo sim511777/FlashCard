@@ -29,13 +29,13 @@
          this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.cbxCard = new System.Windows.Forms.ComboBox();
          this.panel1 = new System.Windows.Forms.Panel();
+         this.btnUndo = new System.Windows.Forms.Button();
+         this.btnRedo = new System.Windows.Forms.Button();
          this.cbxDeck = new System.Windows.Forms.ComboBox();
          this.panel2 = new System.Windows.Forms.Panel();
          this.Panel13 = new System.Windows.Forms.Panel();
          this.btnSearch = new System.Windows.Forms.Button();
          this.chkAutoChange = new System.Windows.Forms.CheckBox();
-         this.btnRedo = new System.Windows.Forms.Button();
-         this.btnUndo = new System.Windows.Forms.Button();
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
@@ -119,6 +119,28 @@
          this.panel1.Size = new System.Drawing.Size(842, 20);
          this.panel1.TabIndex = 7;
          // 
+         // btnUndo
+         // 
+         this.btnUndo.Dock = System.Windows.Forms.DockStyle.Right;
+         this.btnUndo.Location = new System.Drawing.Point(782, 0);
+         this.btnUndo.Name = "btnUndo";
+         this.btnUndo.Size = new System.Drawing.Size(30, 20);
+         this.btnUndo.TabIndex = 9;
+         this.btnUndo.Text = "<";
+         this.btnUndo.UseVisualStyleBackColor = true;
+         this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+         // 
+         // btnRedo
+         // 
+         this.btnRedo.Dock = System.Windows.Forms.DockStyle.Right;
+         this.btnRedo.Location = new System.Drawing.Point(812, 0);
+         this.btnRedo.Name = "btnRedo";
+         this.btnRedo.Size = new System.Drawing.Size(30, 20);
+         this.btnRedo.TabIndex = 8;
+         this.btnRedo.Text = ">";
+         this.btnRedo.UseVisualStyleBackColor = true;
+         this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
+         // 
          // cbxDeck
          // 
          this.cbxDeck.Dock = System.Windows.Forms.DockStyle.Left;
@@ -172,29 +194,6 @@
          this.chkAutoChange.TabIndex = 6;
          this.chkAutoChange.Text = "Auto\r\nChange";
          this.chkAutoChange.UseVisualStyleBackColor = true;
-         this.chkAutoChange.Click += new System.EventHandler(this.chkAutoChange_Click);
-         // 
-         // btnRedo
-         // 
-         this.btnRedo.Dock = System.Windows.Forms.DockStyle.Right;
-         this.btnRedo.Location = new System.Drawing.Point(812, 0);
-         this.btnRedo.Name = "btnRedo";
-         this.btnRedo.Size = new System.Drawing.Size(30, 20);
-         this.btnRedo.TabIndex = 8;
-         this.btnRedo.Text = ">";
-         this.btnRedo.UseVisualStyleBackColor = true;
-         this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
-         // 
-         // btnUndo
-         // 
-         this.btnUndo.Dock = System.Windows.Forms.DockStyle.Right;
-         this.btnUndo.Location = new System.Drawing.Point(782, 0);
-         this.btnUndo.Name = "btnUndo";
-         this.btnUndo.Size = new System.Drawing.Size(30, 20);
-         this.btnUndo.TabIndex = 9;
-         this.btnUndo.Text = "<";
-         this.btnUndo.UseVisualStyleBackColor = true;
-         this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
          // 
          // FormMain
          // 
@@ -206,8 +205,7 @@
          this.Name = "FormMain";
          this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
          this.Text = "Flash Card";
-         this.Move += new System.EventHandler(this.FormMain_Move);
-         this.Resize += new System.EventHandler(this.FormMain_Resize);
+         this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
          this.splitContainer1.Panel1.ResumeLayout(false);
          this.splitContainer1.Panel2.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

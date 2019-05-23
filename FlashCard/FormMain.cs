@@ -12,29 +12,7 @@ using FlashCard.Properties;
 
 namespace FlashCard {
     public partial class FormMain : Form {
-        public FormMain() {
-            InitializeComponent();
-            this.cbxDeck.Items.AddRange(decks.Select(deck=>deck.Item1).ToArray());
-            this.cbxDeck.SelectedIndex = Properties.Settings.Default.deckIndex;
-            Point pt = Settings.Default.windowLocation;
-            if (pt.X < 0)
-                pt.X = 0;
-            if (pt.Y < 0)
-                pt.Y = 0;
-            Settings.Default.windowLocation = pt;
-            this.Location = Settings.Default.windowLocation;
-            this.Size = Settings.Default.windowSize;
-            this.chkAutoChange.Checked = Settings.Default.autoChange;
-            this.TopMost = true;
-            if (this.chkAutoChange.Checked)
-                Settings.Default.lastIndex = (Settings.Default.lastIndex + 1);
-            this.ChangeDeck();
-        }
-
-        private void ChangeDeck() {
-            this.ReadBook();
-            this.ShowCard();
-        }
+        private Settings settings;
 
         private Tuple<Type, byte[]>[] decks = {
             Tuple.Create(typeof(EfficiencyVoca[]), Properties.Resources.EffeciencyVoca),
@@ -43,6 +21,41 @@ namespace FlashCard {
             Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca_Toeic),
             Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000),
         };
+
+        public FormMain() {
+            this.settings = Settings.Load();
+
+            InitializeComponent();
+            this.cbxDeck.Items.AddRange(decks.Select(deck=>deck.Item1).ToArray());
+            this.cbxDeck.SelectedIndex = this.settings.deckIndex;
+
+            Point pt = this.settings.windowLocation;
+            if (pt.X < 0)
+                pt.X = 0;
+            if (pt.Y < 0)
+                pt.Y = 0;
+            this.settings.windowLocation = pt;
+            this.Location = this.settings.windowLocation;
+            this.Size = this.settings.windowSize;
+            this.chkAutoChange.Checked = this.settings.autoChange;
+            this.TopMost = true;
+            if (this.chkAutoChange.Checked)
+                this.settings.lastIndex = (this.settings.lastIndex + 1);
+            this.ChangeDeck();
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            this.settings.windowLocation = this.Location;
+            this.settings.windowSize = this.Size;
+            this.settings.autoChange = this.chkAutoChange.Checked;
+            this.settings.Save();
+        }
+
+        private void ChangeDeck() {
+            this.ReadBook();
+            this.ShowCard();
+        }
+
         public Voca[] cards;
         private void ReadBook() {
             var deck = this.decks[this.cbxDeck.SelectedIndex];
@@ -67,7 +80,7 @@ namespace FlashCard {
             if (historyPointer <= 0)
                 return;
             historyPointer--;
-            Settings.Default.lastIndex = cardHistory.ElementAt(historyPointer);
+            this.settings.lastIndex = cardHistory.ElementAt(historyPointer);
             ShowCard(false);
         }
 
@@ -75,63 +88,47 @@ namespace FlashCard {
             if (historyPointer >= cardHistory.Count-1)
                 return;
             historyPointer++;
-            Settings.Default.lastIndex = cardHistory.ElementAt(historyPointer);
+            this.settings.lastIndex = cardHistory.ElementAt(historyPointer);
             ShowCard(false);
         }
 
         private void ShowCard(bool addHistory = true) {
-            if (Settings.Default.lastIndex < 0)
-                Settings.Default.lastIndex = 0;
-            if (Settings.Default.lastIndex >= this.cards.Length)
-                Settings.Default.lastIndex = this.cards.Length - 1;
-            var card = this.cards[Settings.Default.lastIndex];
+            if (this.settings.lastIndex < 0)
+                this.settings.lastIndex = 0;
+            if (this.settings.lastIndex >= this.cards.Length)
+                this.settings.lastIndex = this.cards.Length - 1;
+            var card = this.cards[this.settings.lastIndex];
             var html = card.GetHtml();
             this.browser.DocumentText = html;
-            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
-            Settings.Default.Save();
+            this.cbxCard.SelectedIndex = this.settings.lastIndex;
             if (addHistory == true) {
-                HistoryAdd(Settings.Default.lastIndex);
+                HistoryAdd(this.settings.lastIndex);
             }
         }
 
         public void ShowCardAndChangeCombo(int index) {
-            Settings.Default.lastIndex = index;
+            this.settings.lastIndex = index;
             this.ShowCard();
         }
 
         private void BtnNext_Click(object sender, EventArgs e) {
-            Settings.Default.lastIndex = (Settings.Default.lastIndex + 1) % this.cards.Length;
+            this.settings.lastIndex = (this.settings.lastIndex + 1) % this.cards.Length;
             this.ShowCard();
         }
 
         private void BtnPrev_Click(object sender, EventArgs e) {
-            Settings.Default.lastIndex = (Settings.Default.lastIndex - 1 + this.cards.Length) % this.cards.Length;
+            this.settings.lastIndex = (this.settings.lastIndex - 1 + this.cards.Length) % this.cards.Length;
             this.ShowCard();
         }
 
-        private void FormMain_Move(object sender, EventArgs e) {
-            Settings.Default.windowLocation = this.Location;
-            Settings.Default.Save();
-        }
-
-        private void FormMain_Resize(object sender, EventArgs e) {
-            Settings.Default.windowSize = this.Size;
-            Settings.Default.Save();
-        }
-
         private void cbxCard_SelectionChangeCommitted(object sender, EventArgs e) {
-            Settings.Default.lastIndex = this.cbxCard.SelectedIndex;
+            this.settings.lastIndex = this.cbxCard.SelectedIndex;
             this.ShowCard();
         }
 
         private void CbxDeck_SelectionChangeCommitted(object sender, EventArgs e) {
-            Settings.Default.deckIndex = this.cbxDeck.SelectedIndex;
+            this.settings.deckIndex = this.cbxDeck.SelectedIndex;
             this.ChangeDeck();
-        }
-
-        private void chkAutoChange_Click(object sender, EventArgs e) {
-            Properties.Settings.Default.autoChange = this.chkAutoChange.Checked;
-            Properties.Settings.Default.Save();
         }
 
         public FormSearch frmSearch = null;
