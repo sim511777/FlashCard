@@ -33,6 +33,7 @@
          this.panel2 = new System.Windows.Forms.Panel();
          this.Panel13 = new System.Windows.Forms.Panel();
          this.chkAutoChange = new System.Windows.Forms.CheckBox();
+         this.btnSearch = new System.Windows.Forms.Button();
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
@@ -48,7 +49,7 @@
          this.btnPrev.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
          this.btnPrev.Location = new System.Drawing.Point(0, 0);
          this.btnPrev.Name = "btnPrev";
-         this.btnPrev.Size = new System.Drawing.Size(73, 222);
+         this.btnPrev.Size = new System.Drawing.Size(73, 211);
          this.btnPrev.TabIndex = 1;
          this.btnPrev.Text = "<=";
          this.btnPrev.UseVisualStyleBackColor = true;
@@ -60,7 +61,7 @@
          this.btnNext.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
          this.btnNext.Location = new System.Drawing.Point(0, 0);
          this.btnNext.Name = "btnNext";
-         this.btnNext.Size = new System.Drawing.Size(73, 244);
+         this.btnNext.Size = new System.Drawing.Size(73, 232);
          this.btnNext.TabIndex = 1;
          this.btnNext.Text = "=>";
          this.btnNext.UseVisualStyleBackColor = true;
@@ -78,7 +79,7 @@
          // splitContainer1
          // 
          this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.splitContainer1.Location = new System.Drawing.Point(0, 28);
+         this.splitContainer1.Location = new System.Drawing.Point(0, 51);
          this.splitContainer1.Name = "splitContainer1";
          this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
          // 
@@ -89,8 +90,8 @@
          // splitContainer1.Panel2
          // 
          this.splitContainer1.Panel2.Controls.Add(this.btnNext);
-         this.splitContainer1.Size = new System.Drawing.Size(73, 470);
-         this.splitContainer1.SplitterDistance = 222;
+         this.splitContainer1.Size = new System.Drawing.Size(73, 447);
+         this.splitContainer1.SplitterDistance = 211;
          this.splitContainer1.TabIndex = 5;
          // 
          // cbxCard
@@ -138,6 +139,7 @@
          // Panel13
          // 
          this.Panel13.Controls.Add(this.splitContainer1);
+         this.Panel13.Controls.Add(this.btnSearch);
          this.Panel13.Controls.Add(this.chkAutoChange);
          this.Panel13.Dock = System.Windows.Forms.DockStyle.Right;
          this.Panel13.Location = new System.Drawing.Point(842, 0);
@@ -156,6 +158,17 @@
          this.chkAutoChange.Text = "Auto\r\nChange";
          this.chkAutoChange.UseVisualStyleBackColor = true;
          this.chkAutoChange.Click += new System.EventHandler(this.chkAutoChange_Click);
+         // 
+         // btnSearch
+         // 
+         this.btnSearch.Dock = System.Windows.Forms.DockStyle.Top;
+         this.btnSearch.Location = new System.Drawing.Point(0, 28);
+         this.btnSearch.Name = "btnSearch";
+         this.btnSearch.Size = new System.Drawing.Size(73, 23);
+         this.btnSearch.TabIndex = 8;
+         this.btnSearch.Text = "Search";
+         this.btnSearch.UseVisualStyleBackColor = true;
+         this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
          // 
          // FormMain
          // 
@@ -193,6 +206,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel Panel13;
         private System.Windows.Forms.CheckBox chkAutoChange;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 

@@ -44,7 +44,7 @@ namespace FlashCard {
             Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca_Toeic),
             Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000),
         };
-        private Voca[] cards;
+        public Voca[] cards;
         private void ReadBook() {
             var deck = this.decks[this.cbxDeck.SelectedIndex];
             this.cards = Voca.ReadBook(deck.Item1, deck.Item2);
@@ -62,6 +62,12 @@ namespace FlashCard {
             var html = card.GetHtml();
             this.browser.DocumentText = html;
             Settings.Default.Save();
+        }
+
+        public void ShowCardAndChangeCombo(int index) {
+            Settings.Default.lastIndex = index;
+            this.ShowCard();
+            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void BtnNext_Click(object sender, EventArgs e) {
@@ -100,5 +106,20 @@ namespace FlashCard {
             Properties.Settings.Default.autoChange = this.chkAutoChange.Checked;
             Properties.Settings.Default.Save();
         }
+
+        public FormSearch frmSearch = null;
+        private void btnSearch_Click(object sender, EventArgs e) {
+            if (frmSearch == null) {
+                this.frmSearch = new FormSearch(this);
+                this.frmSearch.Left = this.Right;
+                this.frmSearch.Top = this.Top;
+                this.frmSearch.Height = this.Height;
+            }
+             if (!this.frmSearch.Visible)
+                this.frmSearch.Show(this);
+             else
+                this.frmSearch.BringToFront();
+             this.frmSearch.WindowState = FormWindowState.Normal;
+         }
     }
 }
