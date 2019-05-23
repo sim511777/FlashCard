@@ -34,7 +34,6 @@ namespace FlashCard {
         private void ChangeDeck() {
             this.ReadBook();
             this.ShowCard();
-            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private Tuple<Type, byte[]>[] decks = {
@@ -53,7 +52,34 @@ namespace FlashCard {
             this.cbxCard.Items.AddRange(wordList);
         }
 
-        private void ShowCard() {
+        LinkedList<int> cardHistory = new LinkedList<int>();
+        int historyPointer = 0;
+        private void HistoryAdd(int index) {
+            while (historyPointer < cardHistory.Count-1)
+                cardHistory.RemoveLast();
+            cardHistory.AddLast(index);
+            if (cardHistory.Count > 10000)
+                cardHistory.RemoveFirst();
+            historyPointer = cardHistory.Count - 1;
+        }
+
+        private void HistoryUndo() {
+            if (historyPointer <= 0)
+                return;
+            historyPointer--;
+            Settings.Default.lastIndex = cardHistory.ElementAt(historyPointer);
+            ShowCard(false);
+        }
+
+        private void HistoryRedo() {
+            if (historyPointer >= cardHistory.Count-1)
+                return;
+            historyPointer++;
+            Settings.Default.lastIndex = cardHistory.ElementAt(historyPointer);
+            ShowCard(false);
+        }
+
+        private void ShowCard(bool addHistory = true) {
             if (Settings.Default.lastIndex < 0)
                 Settings.Default.lastIndex = 0;
             if (Settings.Default.lastIndex >= this.cards.Length)
@@ -61,25 +87,26 @@ namespace FlashCard {
             var card = this.cards[Settings.Default.lastIndex];
             var html = card.GetHtml();
             this.browser.DocumentText = html;
+            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
             Settings.Default.Save();
+            if (addHistory == true) {
+                HistoryAdd(Settings.Default.lastIndex);
+            }
         }
 
         public void ShowCardAndChangeCombo(int index) {
             Settings.Default.lastIndex = index;
             this.ShowCard();
-            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void BtnNext_Click(object sender, EventArgs e) {
             Settings.Default.lastIndex = (Settings.Default.lastIndex + 1) % this.cards.Length;
             this.ShowCard();
-            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void BtnPrev_Click(object sender, EventArgs e) {
             Settings.Default.lastIndex = (Settings.Default.lastIndex - 1 + this.cards.Length) % this.cards.Length;
             this.ShowCard();
-            this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void FormMain_Move(object sender, EventArgs e) {
@@ -121,5 +148,13 @@ namespace FlashCard {
                 this.frmSearch.BringToFront();
              this.frmSearch.WindowState = FormWindowState.Normal;
          }
+
+        private void btnUndo_Click(object sender, EventArgs e) {
+            this.HistoryUndo();
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e) {
+            this.HistoryRedo();
+        }
     }
 }

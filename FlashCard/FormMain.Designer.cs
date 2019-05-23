@@ -32,8 +32,10 @@
          this.cbxDeck = new System.Windows.Forms.ComboBox();
          this.panel2 = new System.Windows.Forms.Panel();
          this.Panel13 = new System.Windows.Forms.Panel();
-         this.chkAutoChange = new System.Windows.Forms.CheckBox();
          this.btnSearch = new System.Windows.Forms.Button();
+         this.chkAutoChange = new System.Windows.Forms.CheckBox();
+         this.btnRedo = new System.Windows.Forms.Button();
+         this.btnUndo = new System.Windows.Forms.Button();
          ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
          this.splitContainer1.Panel1.SuspendLayout();
          this.splitContainer1.Panel2.SuspendLayout();
@@ -101,13 +103,15 @@
          this.cbxCard.FormattingEnabled = true;
          this.cbxCard.Location = new System.Drawing.Point(201, 0);
          this.cbxCard.Name = "cbxCard";
-         this.cbxCard.Size = new System.Drawing.Size(641, 20);
+         this.cbxCard.Size = new System.Drawing.Size(581, 20);
          this.cbxCard.TabIndex = 6;
          this.cbxCard.SelectionChangeCommitted += new System.EventHandler(this.cbxCard_SelectionChangeCommitted);
          // 
          // panel1
          // 
          this.panel1.Controls.Add(this.cbxCard);
+         this.panel1.Controls.Add(this.btnUndo);
+         this.panel1.Controls.Add(this.btnRedo);
          this.panel1.Controls.Add(this.cbxDeck);
          this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
          this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -147,6 +151,17 @@
          this.Panel13.Size = new System.Drawing.Size(73, 498);
          this.Panel13.TabIndex = 9;
          // 
+         // btnSearch
+         // 
+         this.btnSearch.Dock = System.Windows.Forms.DockStyle.Top;
+         this.btnSearch.Location = new System.Drawing.Point(0, 28);
+         this.btnSearch.Name = "btnSearch";
+         this.btnSearch.Size = new System.Drawing.Size(73, 23);
+         this.btnSearch.TabIndex = 8;
+         this.btnSearch.Text = "Search";
+         this.btnSearch.UseVisualStyleBackColor = true;
+         this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+         // 
          // chkAutoChange
          // 
          this.chkAutoChange.AutoSize = true;
@@ -159,16 +174,27 @@
          this.chkAutoChange.UseVisualStyleBackColor = true;
          this.chkAutoChange.Click += new System.EventHandler(this.chkAutoChange_Click);
          // 
-         // btnSearch
+         // btnRedo
          // 
-         this.btnSearch.Dock = System.Windows.Forms.DockStyle.Top;
-         this.btnSearch.Location = new System.Drawing.Point(0, 28);
-         this.btnSearch.Name = "btnSearch";
-         this.btnSearch.Size = new System.Drawing.Size(73, 23);
-         this.btnSearch.TabIndex = 8;
-         this.btnSearch.Text = "Search";
-         this.btnSearch.UseVisualStyleBackColor = true;
-         this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+         this.btnRedo.Dock = System.Windows.Forms.DockStyle.Right;
+         this.btnRedo.Location = new System.Drawing.Point(812, 0);
+         this.btnRedo.Name = "btnRedo";
+         this.btnRedo.Size = new System.Drawing.Size(30, 20);
+         this.btnRedo.TabIndex = 8;
+         this.btnRedo.Text = ">";
+         this.btnRedo.UseVisualStyleBackColor = true;
+         this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
+         // 
+         // btnUndo
+         // 
+         this.btnUndo.Dock = System.Windows.Forms.DockStyle.Right;
+         this.btnUndo.Location = new System.Drawing.Point(782, 0);
+         this.btnUndo.Name = "btnUndo";
+         this.btnUndo.Size = new System.Drawing.Size(30, 20);
+         this.btnUndo.TabIndex = 9;
+         this.btnUndo.Text = "<";
+         this.btnUndo.UseVisualStyleBackColor = true;
+         this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
          // 
          // FormMain
          // 
@@ -207,6 +233,8 @@
         private System.Windows.Forms.Panel Panel13;
         private System.Windows.Forms.CheckBox chkAutoChange;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.Button btnRedo;
     }
 }
 
