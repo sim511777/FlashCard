@@ -59,18 +59,17 @@ namespace FlashCard {
             var card = this.cards[Settings.Default.lastIndex];
             var html = card.GetHtml();
             this.browser.DocumentText = html;
+            Settings.Default.Save();
         }
 
         private void BtnNext_Click(object sender, EventArgs e) {
             Settings.Default.lastIndex = (Settings.Default.lastIndex + 1) % this.cards.Length;
-            Settings.Default.Save();
             this.ShowCard();
             this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
 
         private void BtnPrev_Click(object sender, EventArgs e) {
             Settings.Default.lastIndex = (Settings.Default.lastIndex - 1 + this.cards.Length) % this.cards.Length;
-            Settings.Default.Save();
             this.ShowCard();
             this.cbxCard.SelectedIndex = Settings.Default.lastIndex;
         }
@@ -87,14 +86,12 @@ namespace FlashCard {
 
         private void cbxCard_SelectionChangeCommitted(object sender, EventArgs e) {
             Settings.Default.lastIndex = this.cbxCard.SelectedIndex;
-            Settings.Default.Save();
             this.ShowCard();
         }
 
         private void CbxDeck_SelectionChangeCommitted(object sender, EventArgs e) {
-            this.ChangeDeck();
             Settings.Default.deckIndex = this.cbxDeck.SelectedIndex;
-            Settings.Default.Save();
+            this.ChangeDeck();
         }
     }
 }
