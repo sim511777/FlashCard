@@ -21,10 +21,8 @@ background-repeat:no-repeat;
 background:#F5F5F5;
 }
 td {
-	font-size:20px;
 }
 .exaEng {
-font-size:24px;	
 }
 .exaEng b {
 color:#F03C1E;
@@ -35,13 +33,11 @@ font-weight:normal;
 
 .heightSpacer {
 	color:blue;
-	font-size:4px;
 }	
 .deriHwd {
 font-family: "HelveticaNeue";
 color:#222222;
 font-weight: bold;
-font-size:24px;
 padding:0px 0px 2px 4px;
 }
 .outerTable {
@@ -61,7 +57,6 @@ padding:0px 0px 2px 4px;
 	text-align: center;
 	vertical-align: text-top;
 	color: #B3B3B3;
-	font-size:20px;
 	padding:0px 6px 0px 3px;
 	white-space: nowrap;
 	width:20px;
@@ -71,7 +66,6 @@ padding:0px 0px 2px 4px;
 .transSenseNum {
 	text-align: center;
 	vertical-align: top;
-	font-size:14px;
 	color: #F03C1E;
 	padding:0px 3px 0px 3px;
 }
@@ -79,7 +73,6 @@ padding:0px 0px 2px 4px;
 	width: 16px;
 	text-align: center;
 	vertical-align: top;
-	font-size: 14px;
 	color: #F03C1E;
 	padding-right: 3px;
 }
@@ -90,14 +83,12 @@ padding:0px 0px 2px 4px;
 
 .eng_block1 {
 	display: inline-block;
-	font-size: 24px;
 	white-space: nowrap;
 	Xborder: 1px solid red;
 }
 
 .eng_block2 {
 	display: inline-block;
-	font-size: 24px;
 	white-space: nowrap;
 }
 .builtT {
@@ -116,7 +107,6 @@ ul li {
 	margin-left:0px;
 }
 .vocadesc_f {
-	font-size:32px;
 	line-height:24px;
 }
 .vocadesc_f b {

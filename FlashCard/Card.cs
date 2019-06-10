@@ -55,7 +55,7 @@ $@"<!DOCTYPE html>
 <body>
     <table width=""100%"">
         <tr>
-            <td width=""50%""><font size=""6"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font>{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
+            <td width=""50%"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font>{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
             <td>{this.ORIGIN_EXP_TAG}</td>
         </tr>
         <tr>
@@ -122,7 +122,7 @@ $@"<!DOCTYPE html>
     <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
     <title>Document</title>
 </head>
-<body style=""font-size:24px;"">
+<body>
 {wordEntry}<br/>
 {meaning}<br/>
 <br/>
@@ -189,7 +189,7 @@ $@"<!DOCTYPE html>
     <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
     <title>Document</title>
 </head>
-<body style=""font-size:24px;"">
+<body>
 {wordEntry}<br/>
 {meaning}<br/>
 <br/>
@@ -223,7 +223,7 @@ $@"<!DOCTYPE html>
     <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
     <title>Document</title>
 </head>
-<body style=""font-size:24px;"">
+<body>
 {this.Word}<br/>
 {this.Meaning}
 </body>
