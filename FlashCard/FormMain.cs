@@ -14,12 +14,12 @@ namespace FlashCard {
     public partial class FormMain : Form {
         private Settings settings;
 
-        private Tuple<string, Tuple<Type, byte[]>>[] decks = {
-            Tuple.Create("능률보카 어원편", Tuple.Create(typeof(EfficiencyVoca[]), Properties.Resources.EffeciencyVoca)),
-            Tuple.Create("그림어원 중학", Tuple.Create(typeof(DrawingVocaMs[]), Properties.Resources.DrawingVoca_MiddleSchool)),
-            Tuple.Create("그림어원 수능", Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca_Csat)),
-            Tuple.Create("그림어원 토익", Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca_Toeic)),
-            Tuple.Create("구텐베르크 최빈도", Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000)),
+        private Tuple<string, Tuple<Type, byte[], string, string>>[] decks = {
+            Tuple.Create("능률보카 어원편", Tuple.Create(typeof(EfficiencyVoca), Properties.Resources.EffeciencyVoca, "EffeciencyVoca", "C_VOCA")),
+            Tuple.Create("그림어원 중학", Tuple.Create(typeof(DrawingVocaMs), Properties.Resources.DrawingVoca_MiddleSchool, "DrawingVoca_MiddleSchool", "VCCONTENTS")),
+            Tuple.Create("그림어원 수능", Tuple.Create(typeof(DrawingVoca), Properties.Resources.DrawingVoca_Csat, "DrawingVoca_Csat", "VCCONTENTS")),
+            Tuple.Create("그림어원 토익", Tuple.Create(typeof(DrawingVoca), Properties.Resources.DrawingVoca_Toeic, "DrawingVoca_Toeic", "VCCONTENTS")),
+            //Tuple.Create("구텐베르크 최빈도", Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000)),
         };
 
         public FormMain() {
@@ -59,7 +59,7 @@ namespace FlashCard {
         public Voca[] cards;
         private void ReadBook() {
             var deck = this.decks[this.cbxDeck.SelectedIndex];
-            this.cards = Voca.ReadBook(deck.Item2.Item1, deck.Item2.Item2);
+            this.cards = Voca.ReadBook(deck.Item2.Item1, deck.Item2.Item2, deck.Item2.Item3, deck.Item2.Item4);
             var wordList = this.cards.Select(card => card.GetTitle()).ToArray();
             this.cbxCard.Items.Clear();
             this.cbxCard.Items.AddRange(wordList);

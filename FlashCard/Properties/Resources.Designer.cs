@@ -124,28 +124,16 @@ namespace FlashCard.Properties {
         ///background:#F5F5F5;
         ///}
         ///td {
-        ///	font-size:20px;
         ///}
         ///.exaEng {
-        ///font-size:24px;	
         ///}
         ///.exaEng b {
         ///color:#F03C1E;
-        ///font-weigh[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///font-weight:norm[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string main_study {
             get {
                 return ResourceManager.GetString("main_study", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] Voca13000 {
-            get {
-                object obj = ResourceManager.GetObject("Voca13000", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }

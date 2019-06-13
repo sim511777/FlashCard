@@ -5,17 +5,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace FlashCard {
     public abstract class Voca {
         public abstract string GetTitle();
         public abstract string GetHtml();
-        public static Voca[] ReadBook(Type type, byte[] bytes) {
-            var allText = Encoding.UTF8.GetString(bytes);
-            var ser = new DataContractJsonSerializer(type);
-            using (var ms = new MemoryStream(bytes)) {
-                return (Voca[])ser.ReadObject(ms);
+        public static Voca[] ReadBook(Type type, byte[] bytes, string dbFilename, string tableName) {
+            string dbFilePath = Application.StartupPath + "\\" + dbFilename + ".sqlite";
+            if (File.Exists(dbFilePath) == false) {
+                File.WriteAllBytes(dbFilePath, bytes);
             }
+            string connStr = $@"Data Source={dbFilePath}";
+
+            var props = type.GetProperties();
+
+            List<Voca> vocaList = new List<Voca>();
+
+            using (var conn = new SQLiteConnection(connStr)) {
+                conn.Open();
+                string sql = $"SELECT * FROM {tableName}";
+
+                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                SQLiteDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read()) {
+                    var voca = (Voca)Activator.CreateInstance(type);
+                    foreach (var prop in props) {
+                        object newType = Convert.ChangeType(rdr[prop.Name], prop.PropertyType);
+                        prop.SetValue(voca, newType);
+                    }
+                    vocaList.Add(voca);
+                }
+                rdr.Close();
+            }
+
+            return vocaList.ToArray();
         }
     }
     
