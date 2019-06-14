@@ -26,7 +26,6 @@
          this.btnPrev = new System.Windows.Forms.Button();
          this.btnNext = new System.Windows.Forms.Button();
          this.browser = new System.Windows.Forms.WebBrowser();
-         this.splitContainer1 = new System.Windows.Forms.SplitContainer();
          this.cbxCard = new System.Windows.Forms.ComboBox();
          this.panel1 = new System.Windows.Forms.Panel();
          this.btnUndo = new System.Windows.Forms.Button();
@@ -36,22 +35,20 @@
          this.Panel13 = new System.Windows.Forms.Panel();
          this.btnSearch = new System.Windows.Forms.Button();
          this.chkAutoChange = new System.Windows.Forms.CheckBox();
-         ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-         this.splitContainer1.Panel1.SuspendLayout();
-         this.splitContainer1.Panel2.SuspendLayout();
-         this.splitContainer1.SuspendLayout();
+         this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
          this.panel1.SuspendLayout();
          this.panel2.SuspendLayout();
          this.Panel13.SuspendLayout();
+         this.tableLayoutPanel1.SuspendLayout();
          this.SuspendLayout();
          // 
          // btnPrev
          // 
          this.btnPrev.Dock = System.Windows.Forms.DockStyle.Fill;
          this.btnPrev.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-         this.btnPrev.Location = new System.Drawing.Point(0, 0);
+         this.btnPrev.Location = new System.Drawing.Point(3, 3);
          this.btnPrev.Name = "btnPrev";
-         this.btnPrev.Size = new System.Drawing.Size(73, 211);
+         this.btnPrev.Size = new System.Drawing.Size(67, 217);
          this.btnPrev.TabIndex = 1;
          this.btnPrev.Text = "<=";
          this.btnPrev.UseVisualStyleBackColor = true;
@@ -61,9 +58,9 @@
          // 
          this.btnNext.Dock = System.Windows.Forms.DockStyle.Fill;
          this.btnNext.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-         this.btnNext.Location = new System.Drawing.Point(0, 0);
+         this.btnNext.Location = new System.Drawing.Point(3, 226);
          this.btnNext.Name = "btnNext";
-         this.btnNext.Size = new System.Drawing.Size(73, 232);
+         this.btnNext.Size = new System.Drawing.Size(67, 218);
          this.btnNext.TabIndex = 1;
          this.btnNext.Text = "=>";
          this.btnNext.UseVisualStyleBackColor = true;
@@ -77,24 +74,6 @@
          this.browser.Name = "browser";
          this.browser.Size = new System.Drawing.Size(842, 478);
          this.browser.TabIndex = 4;
-         // 
-         // splitContainer1
-         // 
-         this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.splitContainer1.Location = new System.Drawing.Point(0, 51);
-         this.splitContainer1.Name = "splitContainer1";
-         this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-         // 
-         // splitContainer1.Panel1
-         // 
-         this.splitContainer1.Panel1.Controls.Add(this.btnPrev);
-         // 
-         // splitContainer1.Panel2
-         // 
-         this.splitContainer1.Panel2.Controls.Add(this.btnNext);
-         this.splitContainer1.Size = new System.Drawing.Size(73, 447);
-         this.splitContainer1.SplitterDistance = 211;
-         this.splitContainer1.TabIndex = 5;
          // 
          // cbxCard
          // 
@@ -164,7 +143,7 @@
          // 
          // Panel13
          // 
-         this.Panel13.Controls.Add(this.splitContainer1);
+         this.Panel13.Controls.Add(this.tableLayoutPanel1);
          this.Panel13.Controls.Add(this.btnSearch);
          this.Panel13.Controls.Add(this.chkAutoChange);
          this.Panel13.Dock = System.Windows.Forms.DockStyle.Right;
@@ -195,6 +174,21 @@
          this.chkAutoChange.Text = "Auto\r\nChange";
          this.chkAutoChange.UseVisualStyleBackColor = true;
          // 
+         // tableLayoutPanel1
+         // 
+         this.tableLayoutPanel1.ColumnCount = 1;
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel1.Controls.Add(this.btnNext, 0, 1);
+         this.tableLayoutPanel1.Controls.Add(this.btnPrev, 0, 0);
+         this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 51);
+         this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+         this.tableLayoutPanel1.RowCount = 2;
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(73, 447);
+         this.tableLayoutPanel1.TabIndex = 9;
+         // 
          // FormMain
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -206,14 +200,11 @@
          this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
          this.Text = "Flash Card";
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
-         this.splitContainer1.Panel1.ResumeLayout(false);
-         this.splitContainer1.Panel2.ResumeLayout(false);
-         ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-         this.splitContainer1.ResumeLayout(false);
          this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
          this.Panel13.ResumeLayout(false);
          this.Panel13.PerformLayout();
+         this.tableLayoutPanel1.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -223,7 +214,6 @@
       private System.Windows.Forms.Button btnPrev;
       private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.WebBrowser browser;
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ComboBox cbxCard;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox cbxDeck;
@@ -233,6 +223,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.Button btnRedo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 
