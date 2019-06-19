@@ -34,7 +34,7 @@ namespace FlashCard {
                 return;
             var selItem = (Tuple<string, int>)this.lbxResult.SelectedItem;
             int vocaIdx = selItem.Item2;
-            this.frmMain.ShowCardAndChangeCombo(vocaIdx);
+            this.frmMain.CardListChange(vocaIdx);
         }
     }
 }

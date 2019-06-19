@@ -12,7 +12,7 @@ namespace FlashCard {
     public abstract class Voca {
         public abstract string GetTitle();
         public abstract string GetHtml();
-        public static Voca[] ReadBook(Type type, byte[] bytes, string dbFilename, string tableName) {
+        public static Voca[] ReadDeck(Type type, byte[] bytes, string dbFilename, string tableName) {
             string dbFilePath = Application.StartupPath + "\\" + dbFilename + ".sqlite";
             if (File.Exists(dbFilePath) == false) {
                 File.WriteAllBytes(dbFilePath, bytes);

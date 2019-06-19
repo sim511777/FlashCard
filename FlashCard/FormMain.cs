@@ -12,59 +12,116 @@ using FlashCard.Properties;
 
 namespace FlashCard {
     public partial class FormMain : Form {
-        private Settings settings;
-
-        private Tuple<string, Tuple<Type, byte[], string, string>>[] decks = {
+        // 데크 목록
+        private Tuple<string, Tuple<Type, byte[], string, string>>[] deckInfos = {
             Tuple.Create("능률보카 어원편", Tuple.Create(typeof(EfficiencyVoca), Properties.Resources.EffeciencyVoca, "EffeciencyVoca", "C_VOCA")),
             Tuple.Create("그림어원 중학", Tuple.Create(typeof(DrawingVocaMs), Properties.Resources.DrawingVoca_MiddleSchool, "DrawingVoca_MiddleSchool", "VCCONTENTS")),
             Tuple.Create("그림어원 수능", Tuple.Create(typeof(DrawingVoca), Properties.Resources.DrawingVoca_Csat, "DrawingVoca_Csat", "VCCONTENTS")),
             Tuple.Create("그림어원 토익", Tuple.Create(typeof(DrawingVoca), Properties.Resources.DrawingVoca_Toeic, "DrawingVoca_Toeic", "VCCONTENTS")),
             //Tuple.Create("구텐베르크 최빈도", Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000)),
         };
+        
+        // 현재 로드된 데크
+        public Voca[] cards;
 
+        // 생성자
         public FormMain() {
-            this.settings = Settings.Load();
-
             InitializeComponent();
-            this.cbxDeck.Items.AddRange(decks.Select(deck=>deck.Item1).ToArray());
-            this.cbxDeck.SelectedIndex = this.settings.deckIndex;
+            // UI 추가 초기화
+            this.TopMost = true;
+            browser.Navigate("about:blank");
+            browser.Document.Write(String.Empty);
+        }
 
-            Point pt = this.settings.windowLocation;
+        private void FormMain_Load(object sender, EventArgs e) {
+            // 설정 로드
+            var settings = Settings.Load();
+
+            // 설정 -> 폼 세팅
+            Point pt = settings.windowLocation;
             if (pt.X < 0)
                 pt.X = 0;
             if (pt.Y < 0)
                 pt.Y = 0;
-            this.settings.windowLocation = pt;
-            this.Location = this.settings.windowLocation;
-            this.Size = this.settings.windowSize;
-            this.chkAutoChange.Checked = this.settings.autoChange;
-            this.TopMost = true;
-            if (this.chkAutoChange.Checked)
-                this.settings.lastIndex = (this.settings.lastIndex + 1);
-            this.ChangeDeck();
+            settings.windowLocation = pt;
+            this.Location = settings.windowLocation;
+            this.Size = settings.windowSize;
+            this.chkAutoChange.Checked = settings.autoChange;
+            
+            // 데크 리스트 로드
+            this.cbxDeck.Items.AddRange(deckInfos.Select(deck=>deck.Item1).ToArray());
+            
+            // 데크 리스트 선택
+            this.cbxDeck.SelectedIndex = Glb.IntRange(settings.deckIndex, 0, this.cbxDeck.Items.Count-1);
+            
+            // 카드 리스트 선택
+            this.CardListChange(settings.lastIndex + (this.chkAutoChange.Checked ? 1 : 0));
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            this.settings.windowLocation = this.Location;
-            this.settings.windowSize = this.Size;
-            this.settings.autoChange = this.chkAutoChange.Checked;
-            this.settings.Save();
+            // 폼 -> 설정 세팅
+            var settings = new Settings();
+            settings.windowLocation = this.Location;
+            settings.windowSize = this.Size;
+            settings.autoChange = this.chkAutoChange.Checked;
+            settings.deckIndex = this.cbxDeck.SelectedIndex;
+            settings.lastIndex = this.lbxCard.SelectedIndex;
+
+            // 설정 저장
+            settings.Save();
         }
 
-        private void ChangeDeck() {
-            this.ReadBook();
-            this.ShowCard();
+        // 데크 리스트 선택시
+        private void CbxDeck_SelectedIndexChanged(object sender, EventArgs e) {
+            int idx = this.lbxCard.SelectedIndex;
+            this.ReadSelectedDeck();
+            this.CardListChange(idx);
         }
-
-        public Voca[] cards;
-        private void ReadBook() {
-            var deck = this.decks[this.cbxDeck.SelectedIndex];
-            this.cards = Voca.ReadBook(deck.Item2.Item1, deck.Item2.Item2, deck.Item2.Item3, deck.Item2.Item4);
+        private void ReadSelectedDeck() {
+            var deckInfo = this.deckInfos[this.cbxDeck.SelectedIndex];
+            this.cards = Voca.ReadDeck(deckInfo.Item2.Item1, deckInfo.Item2.Item2, deckInfo.Item2.Item3, deckInfo.Item2.Item4);
             var wordList = this.cards.Select(card => card.GetTitle()).ToArray();
-            this.cbxCard.Items.Clear();
-            this.cbxCard.Items.AddRange(wordList);
+            this.lbxCard.Items.Clear();
+            this.lbxCard.Items.AddRange(wordList);
         }
 
+        // 카드 리스트 선택시
+        private void lbxCard_SelectedIndexChanged(object sender, EventArgs e) {
+            int idx = this.lbxCard.SelectedIndex;
+            var card = this.cards[idx];
+            var html = card.GetHtml();
+            this.browser.DocumentText = html;
+            bool addHistory = true;
+            if (addHistory == true) {
+                HistoryAdd(idx);
+            }
+        }
+
+        // 카드 리스트 선택
+        public void CardListChange(int idx) {
+            if (this.lbxCard.Items.Count <= 0 || idx < 0)
+                return;
+
+            this.lbxCard.SelectedIndex = Glb.IntRange(idx, 0, this.lbxCard.Items.Count-1);
+        }
+
+        // 다음 버튼
+        private void BtnNext_Click(object sender, EventArgs e) {
+            int cnt = this.lbxCard.Items.Count;
+            int idx = (this.lbxCard.SelectedIndex + 1) % cnt;
+            this.CardListChange(idx);
+        }
+
+        // 이전 버튼
+        private void BtnPrev_Click(object sender, EventArgs e) {
+            int cnt = this.lbxCard.Items.Count;
+            int idx = (this.lbxCard.SelectedIndex - 1 + cnt) % cnt;
+            this.CardListChange(idx);
+        }
+
+
+
+        // 히스토리 기능
         LinkedList<int> cardHistory = new LinkedList<int>();
         int historyPointer = 0;
         private void HistoryAdd(int index) {
@@ -80,57 +137,17 @@ namespace FlashCard {
             if (historyPointer <= 0)
                 return;
             historyPointer--;
-            this.settings.lastIndex = cardHistory.ElementAt(historyPointer);
-            ShowCard(false);
+            this.CardListChange(cardHistory.ElementAt(historyPointer));
         }
 
         private void HistoryRedo() {
             if (historyPointer >= cardHistory.Count-1)
                 return;
             historyPointer++;
-            this.settings.lastIndex = cardHistory.ElementAt(historyPointer);
-            ShowCard(false);
+            this.CardListChange(cardHistory.ElementAt(historyPointer));
         }
 
-        private void ShowCard(bool addHistory = true) {
-            if (this.settings.lastIndex < 0)
-                this.settings.lastIndex = 0;
-            if (this.settings.lastIndex >= this.cards.Length)
-                this.settings.lastIndex = this.cards.Length - 1;
-            var card = this.cards[this.settings.lastIndex];
-            var html = card.GetHtml();
-            this.browser.DocumentText = html;
-            this.cbxCard.SelectedIndex = this.settings.lastIndex;
-            if (addHistory == true) {
-                HistoryAdd(this.settings.lastIndex);
-            }
-        }
-
-        public void ShowCardAndChangeCombo(int index) {
-            this.settings.lastIndex = index;
-            this.ShowCard();
-        }
-
-        private void BtnNext_Click(object sender, EventArgs e) {
-            this.settings.lastIndex = (this.settings.lastIndex + 1) % this.cards.Length;
-            this.ShowCard();
-        }
-
-        private void BtnPrev_Click(object sender, EventArgs e) {
-            this.settings.lastIndex = (this.settings.lastIndex - 1 + this.cards.Length) % this.cards.Length;
-            this.ShowCard();
-        }
-
-        private void cbxCard_SelectionChangeCommitted(object sender, EventArgs e) {
-            this.settings.lastIndex = this.cbxCard.SelectedIndex;
-            this.ShowCard();
-        }
-
-        private void CbxDeck_SelectionChangeCommitted(object sender, EventArgs e) {
-            this.settings.deckIndex = this.cbxDeck.SelectedIndex;
-            this.ChangeDeck();
-        }
-
+        // 서치 기능
         public FormSearch frmSearch = null;
         private void btnSearch_Click(object sender, EventArgs e) {
             if (frmSearch == null) {
