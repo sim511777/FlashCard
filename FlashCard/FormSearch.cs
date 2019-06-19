@@ -25,7 +25,8 @@ namespace FlashCard {
             var word = this.tbxWord.Text;
             if (word.Length < 1)
                 return;
-            var items = this.frmMain.cards.Select((voca, idx) => Tuple.Create(voca.GetTitle(), idx)).Where(item => item.Item1.Contains(word));
+            var titles = this.frmMain.lbxCard.Items.Cast<Tuple<string, Voca>>().Select(tuple => tuple.Item1);
+            var items = titles.Select((title, idx) => Tuple.Create(title, idx)).Where(item => item.Item1.Contains(word));
             this.lbxResult.Items.AddRange(items.ToArray());
         }
 

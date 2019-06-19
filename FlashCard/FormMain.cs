@@ -21,9 +21,6 @@ namespace FlashCard {
             //Tuple.Create("구텐베르크 최빈도", Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000)),
         };
         
-        // 현재 로드된 데크
-        public Voca[] cards;
-
         // 생성자
         public FormMain() {
             InitializeComponent();
@@ -79,21 +76,21 @@ namespace FlashCard {
         }
         private void ReadSelectedDeck() {
             var deckInfo = this.deckInfos[this.cbxDeck.SelectedIndex];
-            this.cards = Voca.ReadDeck(deckInfo.Item2.Item1, deckInfo.Item2.Item2, deckInfo.Item2.Item3, deckInfo.Item2.Item4);
-            var wordList = this.cards.Select(card => card.GetTitle()).ToArray();
+            var cards = Voca.ReadDeck(deckInfo.Item2.Item1, deckInfo.Item2.Item2, deckInfo.Item2.Item3, deckInfo.Item2.Item4);
+            var items = cards.Select(card => Tuple.Create(card.GetTitle(), card)).ToArray();
             this.lbxCard.Items.Clear();
-            this.lbxCard.Items.AddRange(wordList);
+            this.lbxCard.Items.AddRange(items);
         }
 
         // 카드 리스트 선택시
         private void lbxCard_SelectedIndexChanged(object sender, EventArgs e) {
-            int idx = this.lbxCard.SelectedIndex;
-            var card = this.cards[idx];
+            var item = this.lbxCard.SelectedItem as Tuple<string, Voca>;
+            var card = item.Item2;
             var html = card.GetHtml();
             this.browser.DocumentText = html;
             bool addHistory = true;
             if (addHistory == true) {
-                HistoryAdd(idx);
+                HistoryAdd(this.lbxCard.SelectedIndex);
             }
         }
 

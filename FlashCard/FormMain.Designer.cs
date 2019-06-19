@@ -27,6 +27,7 @@
          this.btnNext = new System.Windows.Forms.Button();
          this.browser = new System.Windows.Forms.WebBrowser();
          this.panel1 = new System.Windows.Forms.Panel();
+         this.lbxCard = new System.Windows.Forms.ListBox();
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
          this.cbxDeck = new System.Windows.Forms.ComboBox();
          this.Panel13 = new System.Windows.Forms.Panel();
@@ -38,7 +39,6 @@
          this.panel2 = new System.Windows.Forms.Panel();
          this.panel3 = new System.Windows.Forms.Panel();
          this.splitter1 = new System.Windows.Forms.Splitter();
-         this.lbxCard = new System.Windows.Forms.ListBox();
          this.panel1.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
          this.Panel13.SuspendLayout();
@@ -93,6 +93,19 @@
          this.panel1.Name = "panel1";
          this.panel1.Size = new System.Drawing.Size(267, 507);
          this.panel1.TabIndex = 7;
+         // 
+         // lbxCard
+         // 
+         this.lbxCard.DisplayMember = "Item1";
+         this.lbxCard.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.lbxCard.FormattingEnabled = true;
+         this.lbxCard.ItemHeight = 12;
+         this.lbxCard.Location = new System.Drawing.Point(0, 49);
+         this.lbxCard.Name = "lbxCard";
+         this.lbxCard.Size = new System.Drawing.Size(267, 363);
+         this.lbxCard.TabIndex = 10;
+         this.lbxCard.ValueMember = "Item2";
+         this.lbxCard.SelectedIndexChanged += new System.EventHandler(this.lbxCard_SelectedIndexChanged);
          // 
          // tableLayoutPanel1
          // 
@@ -222,17 +235,6 @@
          this.splitter1.TabIndex = 8;
          this.splitter1.TabStop = false;
          // 
-         // lbxCard
-         // 
-         this.lbxCard.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.lbxCard.FormattingEnabled = true;
-         this.lbxCard.ItemHeight = 12;
-         this.lbxCard.Location = new System.Drawing.Point(0, 49);
-         this.lbxCard.Name = "lbxCard";
-         this.lbxCard.Size = new System.Drawing.Size(267, 363);
-         this.lbxCard.TabIndex = 10;
-         this.lbxCard.SelectedIndexChanged += new System.EventHandler(this.lbxCard_SelectedIndexChanged);
-         // 
          // FormMain
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -272,7 +274,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.ListBox lbxCard;
+        public System.Windows.Forms.ListBox lbxCard;
     }
 }
 
