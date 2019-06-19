@@ -62,7 +62,11 @@ namespace FlashCard {
         public int SOUND_ORD { get; set; }          //
 
         public override string GetTitle() {
-            return string.Format("{0}. {1} : {2}", this.VOCA_ID, this.VOCABULARY, this.MEANING_INDEX);
+            if (PREFIX_ORD != 0) {
+                return string.Format("{0}. {1} : {2}", this.VOCA_ID, this.VOCABULARY, this.MEANING_INDEX);
+            } else {
+                return string.Format("{0}. [원] {1} : {2}", this.VOCA_ID, this.VOCABULARY, System.Text.RegularExpressions.Regex.Replace(this.ORIGIN_EXP_TAG, "<.*?>", string.Empty));
+            }
         }
         public override string GetHtml() {
             string html =
@@ -80,7 +84,7 @@ $@"<!DOCTYPE html>
 <body>
     <table width=""100%"">
         <tr>
-            <td width=""50%"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font>{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
+            <td width=""50%"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font><br/>{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
             <td>{this.ORIGIN_EXP_TAG}</td>
         </tr>
         <tr>
