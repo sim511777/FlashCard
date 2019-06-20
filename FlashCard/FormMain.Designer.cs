@@ -98,8 +98,9 @@
          // 
          this.lbxCard.DisplayMember = "Item1";
          this.lbxCard.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.lbxCard.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
          this.lbxCard.FormattingEnabled = true;
-         this.lbxCard.ItemHeight = 12;
+         this.lbxCard.ItemHeight = 15;
          this.lbxCard.Location = new System.Drawing.Point(0, 49);
          this.lbxCard.Name = "lbxCard";
          this.lbxCard.Size = new System.Drawing.Size(267, 363);
