@@ -65,7 +65,7 @@ namespace FlashCard {
             if (PREFIX_ORD != 0) {
                 return string.Format("{0}. {1} : {2}", this.VOCA_ID, this.VOCABULARY, this.MEANING_INDEX);
             } else {
-                return string.Format("{0}. [원] {1} : {2}", this.VOCA_ID, this.VOCABULARY, System.Text.RegularExpressions.Regex.Replace(this.ORIGIN_EXP_TAG, "<.*?>", string.Empty));
+                return string.Format("[어원] {0} : {1}", this.VOCABULARY, System.Text.RegularExpressions.Regex.Replace(this.ORIGIN_EXP_TAG, "<.*?>", string.Empty));
             }
         }
         public override string GetHtml() {
@@ -84,7 +84,7 @@ $@"<!DOCTYPE html>
 <body>
     <table width=""100%"">
         <tr>
-            <td width=""50%"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font><br/>{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
+            <td width=""50%"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font>&nbsp{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
             <td>{this.ORIGIN_EXP_TAG}</td>
         </tr>
         <tr>
@@ -129,8 +129,9 @@ $@"<!DOCTYPE html>
             return string.Format("{0}. {1} : {2}", this.CSNUM, this.WORD_EN1, this.Q_CORRECT);
         }
         public override string GetHtml() {
-            string wordRoot = this.CSTITLE.Replace("\t \t", " ");
-            string wordEntry = $"{this.WORD_EN1} [{this.WORD_PHONETICS}]";
+            string wordRoot = this.CSTITLE;
+            string wordEntry = this.WORD_EN1;
+            string pronunciation = this.WORD_PHONETICS;
             string meaning = this.WORD_KR2;
             var etyEngParts = WORD_EN2.Split('^');
             var etyEngParts2 = etyEngParts.Select(word=>word.StartsWith("&") ? "<font color=\"red\">" + word.TrimStart('&') + "</font>" : word);
@@ -150,12 +151,16 @@ $@"<!DOCTYPE html>
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
     <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
     <title>Document</title>
+<style>
+{Properties.Resources.drawing_voca}
+</style>
 </head>
 <body>
-{wordEntry}<br/>
+{wordRoot}<br/>
+</br>
+<font size='5'><b>{wordEntry}</b></font> [{pronunciation}]<br/>
 {meaning}<br/>
 <br/>
-{wordRoot}<br/>
 {etyEng}<br/>
 {etyKor}<br/>
 <br/>
@@ -198,8 +203,9 @@ $@"<!DOCTYPE html>
             return string.Format("{0}. {1} : {2}", this.CSNUM, this.WORD_EN1, this.Q_CORRECT);
         }
         public override string GetHtml() {
-            string wordRoot = this.CSTITLE.Replace("\t \t", " ");
-            string wordEntry = $"{this.WORD_EN1} [{this.WORD_PHONETICS}]";
+            string wordRoot = this.CSTITLE;
+            string wordEntry = this.WORD_EN1;
+            string pronunciation = this.WORD_PHONETICS;
             string meaning = this.WORD_KR2;
             var etyEngParts = WORD_EN2.Split('^');
             var etyEngParts2 = etyEngParts.Select(word=>word.StartsWith("&") ? "<font color=\"red\">" + word.TrimStart('&') + "</font>" : word);
@@ -217,12 +223,16 @@ $@"<!DOCTYPE html>
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
     <meta http-equiv=""X-UA-Compatible"" content=""ie=edge"">
     <title>Document</title>
+<style>
+{Properties.Resources.drawing_voca}
+</style>
 </head>
 <body>
-{wordEntry}<br/>
+{wordRoot}<br/>
+</br>
+<font size='5'><b>{wordEntry}</b></font> [{pronunciation}]<br/>
 {meaning}<br/>
 <br/>
-{wordRoot}<br/>
 {etyEng}<br/>
 {etyKor}<br/>
 <br/>
