@@ -99,7 +99,11 @@ namespace FlashCard {
             if (this.lbxCard.Items.Count <= 0 || idx < 0)
                 return;
 
-            this.lbxCard.SelectedIndex = Glb.IntRange(idx, 0, this.lbxCard.Items.Count-1);
+            idx = Glb.IntRange(idx, 0, this.lbxCard.Items.Count-1);
+            this.lbxCard.SelectedIndex = idx;
+            var size = this.lbxCard.Size;
+            int cidx = this.lbxCard.IndexFromPoint(size.Width/2, size.Height/2);
+            this.lbxCard.TopIndex += idx-cidx;
         }
 
         // 다음 버튼
