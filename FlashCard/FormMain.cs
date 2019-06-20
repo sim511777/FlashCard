@@ -88,19 +88,21 @@ namespace FlashCard {
             var card = item.Item2;
             var html = card.GetHtml();
             this.browser.DocumentText = html;
-            bool addHistory = true;
-            if (addHistory == true) {
+            if (this.historyAdd == true) {
                 HistoryAdd(this.lbxCard.SelectedIndex);
             }
         }
 
+        bool historyAdd = true;
         // 카드 리스트 선택
-        public void CardListChange(int idx) {
+        public void CardListChange(int idx, bool historyAdd = true) {
             if (this.lbxCard.Items.Count <= 0 || idx < 0)
                 return;
 
             idx = Glb.IntRange(idx, 0, this.lbxCard.Items.Count-1);
+            this.historyAdd = historyAdd;
             this.lbxCard.SelectedIndex = idx;
+            this.historyAdd = true;
             var size = this.lbxCard.Size;
             int cidx = this.lbxCard.IndexFromPoint(size.Width/2, size.Height/2);
             this.lbxCard.TopIndex += idx-cidx;
@@ -120,10 +122,14 @@ namespace FlashCard {
             this.CardListChange(idx);
         }
 
-
-
         // 히스토리 기능
-        LinkedList<int> cardHistory = new LinkedList<int>();
+        private void ShowHistory() {
+            return;
+            var histroyTexts = this.cardHistory.Select((cardIdx, idx) => idx == historyPointer ? $"[{cardIdx}]" : $" {cardIdx} ");
+            this.Text = string.Join("-", histroyTexts.ToArray());
+        }
+
+        private LinkedList<int> cardHistory = new LinkedList<int>();
         int historyPointer = 0;
         private void HistoryAdd(int index) {
             while (historyPointer < cardHistory.Count-1)
@@ -132,21 +138,33 @@ namespace FlashCard {
             if (cardHistory.Count > 10000)
                 cardHistory.RemoveFirst();
             historyPointer = cardHistory.Count - 1;
+            this.ShowHistory();
         }
 
         private void HistoryUndo() {
             if (historyPointer <= 0)
                 return;
             historyPointer--;
-            this.CardListChange(cardHistory.ElementAt(historyPointer));
+            this.CardListChange(cardHistory.ElementAt(historyPointer), false);
+            this.ShowHistory();
         }
 
         private void HistoryRedo() {
             if (historyPointer >= cardHistory.Count-1)
                 return;
             historyPointer++;
-            this.CardListChange(cardHistory.ElementAt(historyPointer));
+            this.CardListChange(cardHistory.ElementAt(historyPointer), false);
+            this.ShowHistory();
         }
+        
+        private void btnUndo_Click(object sender, EventArgs e) {
+            this.HistoryUndo();
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e) {
+            this.HistoryRedo();
+        }
+
 
         // 서치 기능
         public FormSearch frmSearch = null;
@@ -163,13 +181,5 @@ namespace FlashCard {
                 this.frmSearch.BringToFront();
              this.frmSearch.WindowState = FormWindowState.Normal;
          }
-
-        private void btnUndo_Click(object sender, EventArgs e) {
-            this.HistoryUndo();
-        }
-
-        private void btnRedo_Click(object sender, EventArgs e) {
-            this.HistoryRedo();
-        }
     }
 }
