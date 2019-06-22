@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Windows.Forms;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace FlashCard {
     public abstract class Voca {
@@ -23,12 +23,12 @@ namespace FlashCard {
 
             List<Voca> vocaList = new List<Voca>();
 
-            using (var conn = new SQLiteConnection(connStr)) {
+            using (var conn = new SqliteConnection(connStr)) {
                 conn.Open();
                 string sql = $"SELECT * FROM {tableName}";
 
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                SQLiteDataReader rdr = cmd.ExecuteReader();
+                var cmd = new SqliteCommand(sql, conn);
+                var rdr = cmd.ExecuteReader();
                 while (rdr.Read()) {
                     var voca = (Voca)Activator.CreateInstance(type);
                     foreach (var prop in props) {
