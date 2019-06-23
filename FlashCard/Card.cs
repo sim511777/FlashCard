@@ -82,15 +82,15 @@ $@"<!DOCTYPE html>
 </style>
 </head>
 <body>
-    <table width=""100%"">
-        <tr>
-            <td width=""50%"">{(this.PREFIX_ORD == 0 ? this.VOCABULARY : this.VOCABULARY_TAG)}</font>&nbsp{this.ORIGIN_APPENDIX}{this.MEANING_TAG}{this.DERIVATIVE_TAG}</td>
-            <td>{this.ORIGIN_EXP_TAG}</td>
-        </tr>
-        <tr>
-            <td colspan=""2"">{(this.SENTENCE_TAG.Replace("opacity:0","opacity:100"))}</td>
-        </tr>
-    </table>
+    <font size='5'><b>{(this.PREFIX_ORD == 0 ? this.VOCABULARY+ " " + this.ORIGIN_APPENDIX : this.VOCABULARY_TAG)}</b></font>
+<br/>
+    {this.ORIGIN_EXP_TAG}
+<br/>
+    {this.MEANING_TAG}
+<br/>
+    {this.DERIVATIVE_TAG}
+<br/>
+    {(this.SENTENCE_TAG.Replace("opacity:0","opacity:100"))}
 </body>
 </html>";
             return html;
@@ -159,10 +159,11 @@ $@"<!DOCTYPE html>
 {wordRoot}<br/>
 </br>
 <font size='5'><b>{wordEntry}</b></font> [{pronunciation}]<br/>
-{meaning}<br/>
 <br/>
 {etyEng}<br/>
 {etyKor}<br/>
+<br/>
+{meaning}<br/>
 <br/>
 {ex2}<br/>
 {ex2_kor}<br/>
@@ -231,10 +232,11 @@ $@"<!DOCTYPE html>
 {wordRoot}<br/>
 </br>
 <font size='5'><b>{wordEntry}</b></font> [{pronunciation}]<br/>
-{meaning}<br/>
 <br/>
 {etyEng}<br/>
 {etyKor}<br/>
+<br/>
+{meaning}<br/>
 <br/>
 {ex1}<br/>
 {ex1_kor}<br/>
