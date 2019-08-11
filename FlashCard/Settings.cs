@@ -14,7 +14,6 @@ namespace FlashCard {
         public int lastIndex { get; set; } = 0;
         public Point windowLocation { get; set; } = Point.Empty;
         public Size windowSize { get; set; } = new Size(600, 300);
-        public int deckIndex { get; set; } = 0;
         public bool autoChange { get; set; } = false;
         
         public static Settings FromJson(string json) {

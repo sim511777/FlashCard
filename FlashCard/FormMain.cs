@@ -13,9 +13,9 @@ using FlashCard.Properties;
 namespace FlashCard {
     public partial class FormMain : Form {
         // 데크 목록
-        private Tuple<string, Type, byte[]>[] deckInfos = {
-            Tuple.Create("능률보카", typeof(EfficiencyVoca[]), Properties.Resources.EfficiencyVoca),
-            Tuple.Create("그림어원", typeof(DrawingVoca[]), Properties.Resources.DrawingVoca),
+        private Tuple<Type, byte[]>[] deckInfos = {
+            Tuple.Create(typeof(EfficiencyVoca[]), Properties.Resources.EfficiencyVoca),
+            Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca),
         };
         
         // 생성자
@@ -41,12 +41,9 @@ namespace FlashCard {
             this.Location = settings.windowLocation;
             this.Size = settings.windowSize;
             this.chkAutoChange.Checked = settings.autoChange;
-            
-            // 데크 리스트 로드
-            this.cbxDeck.Items.AddRange(deckInfos.Select(deck=>deck.Item1).ToArray());
-            
-            // 데크 리스트 선택
-            this.cbxDeck.SelectedIndex = Glb.IntRange(settings.deckIndex, 0, this.cbxDeck.Items.Count-1);
+
+            // 데크 로드
+            this.ReadDeck();
             
             // 카드 리스트 선택
             this.CardListChange(settings.lastIndex + (this.chkAutoChange.Checked ? 1 : 0));
@@ -58,22 +55,14 @@ namespace FlashCard {
             settings.windowLocation = this.Location;
             settings.windowSize = this.Size;
             settings.autoChange = this.chkAutoChange.Checked;
-            settings.deckIndex = this.cbxDeck.SelectedIndex;
             settings.lastIndex = this.lbxCard.SelectedIndex;
 
             // 설정 저장
             settings.Save();
         }
 
-        // 데크 리스트 선택시
-        private void CbxDeck_SelectedIndexChanged(object sender, EventArgs e) {
-            int idx = this.lbxCard.SelectedIndex;
-            this.ReadSelectedDeck();
-            this.CardListChange(idx);
-        }
-        private void ReadSelectedDeck() {
-            var deckInfo = this.deckInfos[this.cbxDeck.SelectedIndex];
-            var cards = Voca.ReadDeck(deckInfo.Item2, deckInfo.Item3);
+        private void ReadDeck() {
+            var cards = deckInfos.Select(deckInfo => Voca.ReadDeck(deckInfo.Item1, deckInfo.Item2)).SelectMany(vocas => vocas);
             var items = cards.Select(card => Tuple.Create(card.GetTitle(), card)).ToArray();
             this.lbxCard.Items.Clear();
             this.lbxCard.Items.AddRange(items);

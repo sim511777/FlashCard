@@ -37,9 +37,9 @@ namespace FlashCard {
 
         public override string GetTitle() {
             if (PREFIX_ORD != "0") {
-                return $"[능]{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_QUICK}";
+                return $"[능률]{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_QUICK}";
             } else {
-                return $"[능]{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_TAG}";
+                return $"[능률]{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_TAG}";
             }
         }
         public override string GetHtml() {
@@ -125,19 +125,13 @@ $@"<!DOCTYPE html>
         public string WRONGNUM { get; set; }        // 오답 횟수
         public string BOOKMARK { get; set; }        // 북마크
         public override string GetTitle() {
-            return $"[{levelNamesShort[this.LEVEL]}]{this.CSNUM}. {this.WORD_EN1} : {this.Q_CORRECT}";
+            return $"[{levelNames[this.LEVEL]}]{this.CSNUM}. {this.WORD_EN1} : {this.Q_CORRECT}";
         }
         private static Dictionary<string, string> levelNames = new Dictionary<string, string>{
             { "0", ""},
             { "1", "중학"},
             { "2", "수능"},
             { "3", "토익"},
-        };
-        private static Dictionary<string, string> levelNamesShort = new Dictionary<string, string>{
-            { "0", ""},
-            { "1", "중"},
-            { "2", "수"},
-            { "3", "토"},
         };
         public override string GetHtml() {
             string wordRoot = this.CSTITLE;
