@@ -37,9 +37,9 @@ namespace FlashCard {
 
         public override string GetTitle() {
             if (PREFIX_ORD != "0") {
-                return $"{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_QUICK}";
+                return $"[능]{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_QUICK}";
             } else {
-                return $"{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_TAG}";
+                return $"[능]{this.VOCA_ID}. {this.VOCABULARY} : {this.MEANING_TAG}";
             }
         }
         public override string GetHtml() {
