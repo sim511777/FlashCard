@@ -125,15 +125,24 @@ $@"<!DOCTYPE html>
         public string WRONGNUM { get; set; }        // 오답 횟수
         public string BOOKMARK { get; set; }        // 북마크
         public override string GetTitle() {
-            return string.Format("{0}. {1} : {2}", this.CSNUM, this.WORD_EN1, this.Q_CORRECT);
+            return $"[{levelNamesShort[this.LEVEL]}]{this.CSNUM}. {this.WORD_EN1} : {this.Q_CORRECT}";
         }
+        private static Dictionary<string, string> levelNames = new Dictionary<string, string>{
+            { "0", ""},
+            { "1", "중학"},
+            { "2", "수능"},
+            { "3", "토익"},
+        };
+        private static Dictionary<string, string> levelNamesShort = new Dictionary<string, string>{
+            { "0", ""},
+            { "1", "중"},
+            { "2", "수"},
+            { "3", "토"},
+        };
         public override string GetHtml() {
             string wordRoot = this.CSTITLE;
             string wordEntry = this.WORD_EN1;
-            string levelWord = string.Empty;
-            if (this.LEVEL == "1") levelWord = "중학";
-            if (this.LEVEL == "2") levelWord = "수능";
-            if (this.LEVEL == "3") levelWord = "토익";
+            string levelWord = levelNames[this.LEVEL];
             int.TryParse(this.WORD_STAR, out int starNum);
             levelWord += string.Join("", Enumerable.Repeat("★", starNum));
             string pronunciation = this.WORD_PHONETICS;
