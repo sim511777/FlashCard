@@ -61,90 +61,33 @@ namespace FlashCard.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] DrawingVoca {
+            get {
+                object obj = ResourceManager.GetObject("DrawingVoca", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] EfficiencyVoca {
+            get {
+                object obj = ResourceManager.GetObject("EfficiencyVoca", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   body {
         ///font-family: &quot;RixGo_Pro&quot;, &quot;HelveticaNeue&quot;, Helvetica, Arial, sans-serif;
         ///}과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string drawing_voca {
+        internal static string style {
             get {
-                return ResourceManager.GetString("drawing_voca", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] DrawingVoca_Csat {
-            get {
-                object obj = ResourceManager.GetObject("DrawingVoca_Csat", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] DrawingVoca_MiddleSchool {
-            get {
-                object obj = ResourceManager.GetObject("DrawingVoca_MiddleSchool", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] DrawingVoca_Toeic {
-            get {
-                object obj = ResourceManager.GetObject("DrawingVoca_Toeic", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] EffeciencyVoca {
-            get {
-                object obj = ResourceManager.GetObject("EffeciencyVoca", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   @CHARSET &quot;UTF-8&quot;;
-        ///* {
-        ///font-family: &quot;RixGo_Pro&quot;, &quot;HelveticaNeue&quot;, Helvetica, Arial, sans-serif;
-        ///}
-        ///.debugBox {
-        ///	display:inline-block;
-        ///	width:330px;
-        ///}
-        ///.debugTitle {
-        ///background:white;color:black;
-        ///Z-webkit-box-shadow:0px 0px 2px black;
-        ///border:2px solid blue;   
-        ///}
-        ///body {
-        ///color: #828282;
-        ///margin:0px;
-        ///-webkit-user-select:none;
-        ///-webkit-user-drag: none;
-        ///-webkit-user-select:none;
-        ///background-repeat:no-repeat;
-        ///background:#F5F5F5;
-        ///}
-        ///td {
-        ///}
-        ///.exaEng {
-        ///}
-        ///.exaEng b {
-        ///color:#F03C1E;
-        ///font-weight:norm[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string main_study {
-            get {
-                return ResourceManager.GetString("main_study", resourceCulture);
+                return ResourceManager.GetString("style", resourceCulture);
             }
         }
     }

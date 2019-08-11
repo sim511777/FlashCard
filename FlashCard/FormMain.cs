@@ -13,12 +13,9 @@ using FlashCard.Properties;
 namespace FlashCard {
     public partial class FormMain : Form {
         // 데크 목록
-        private Tuple<string, Tuple<Type, byte[], string, string>>[] deckInfos = {
-            Tuple.Create("능률보카 어원편", Tuple.Create(typeof(EfficiencyVoca), Properties.Resources.EffeciencyVoca, "EffeciencyVoca", "C_VOCA")),
-            Tuple.Create("그림어원 중학", Tuple.Create(typeof(DrawingVocaMs), Properties.Resources.DrawingVoca_MiddleSchool, "DrawingVoca_MiddleSchool", "VCCONTENTS")),
-            Tuple.Create("그림어원 수능", Tuple.Create(typeof(DrawingVoca), Properties.Resources.DrawingVoca_Csat, "DrawingVoca_Csat", "VCCONTENTS")),
-            Tuple.Create("그림어원 토익", Tuple.Create(typeof(DrawingVoca), Properties.Resources.DrawingVoca_Toeic, "DrawingVoca_Toeic", "VCCONTENTS")),
-            //Tuple.Create("구텐베르크 최빈도", Tuple.Create(typeof(Voca13000[]), Properties.Resources.Voca13000)),
+        private Tuple<string, Type, byte[]>[] deckInfos = {
+            Tuple.Create("능률보카", typeof(EfficiencyVoca[]), Properties.Resources.EfficiencyVoca),
+            Tuple.Create("그림어원", typeof(DrawingVoca[]), Properties.Resources.DrawingVoca),
         };
         
         // 생성자
@@ -76,7 +73,7 @@ namespace FlashCard {
         }
         private void ReadSelectedDeck() {
             var deckInfo = this.deckInfos[this.cbxDeck.SelectedIndex];
-            var cards = Voca.ReadDeck(deckInfo.Item2.Item1, deckInfo.Item2.Item2, deckInfo.Item2.Item3, deckInfo.Item2.Item4);
+            var cards = Voca.ReadDeck(deckInfo.Item2, deckInfo.Item3);
             var items = cards.Select(card => Tuple.Create(card.GetTitle(), card)).ToArray();
             this.lbxCard.Items.Clear();
             this.lbxCard.Items.AddRange(items);
