@@ -88,18 +88,25 @@ namespace FlashCard {
             try {
                 string json = Settings.HttpGetJson();
                 return Settings.FromJson(json);
-            } catch (Exception ex) {
-                MessageBox.Show(ex.ToString());
-                return new Settings();
+            } catch {
+                try {
+                    string json = File.ReadAllText("config.json");
+                    return Settings.FromJson(json);
+                } catch {
+                    return new Settings();
+                }
             }
         }
 
         public void Save() {
+            string json = this.ToJson();
             try {
-                string json = this.ToJson();
+                File.WriteAllText("config.json", json);
+            } catch {
+            }
+            try {
                 Settings.HttpPutJson(json);
-            } catch (Exception ex) {
-                MessageBox.Show(ex.ToString());
+            } catch {
             }
         }
     }
