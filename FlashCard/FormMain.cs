@@ -15,7 +15,7 @@ namespace FlashCard {
         // 데크 목록
         private Tuple<Type, byte[]>[] deckInfos = {
             Tuple.Create(typeof(EfficiencyVoca[]), Properties.Resources.EfficiencyVoca),
-            Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca),
+            //Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca),
         };
         
         // 생성자
