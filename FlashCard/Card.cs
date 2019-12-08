@@ -57,9 +57,16 @@ $@"<!DOCTYPE html>
 </style>
 </head>
 <body>
-<font size='5'><b>{this.VOCABULARY}</b></font><br/>
-<br/>
+<table>
+<tr>
+<td>
+<b>{this.VOCABULARY}</b>
+</td>
+<td>
 {this.MEANING_TAG.Replace(" / ", "<br/>")}
+</td>
+</tr>
+</table>
 </body>
 </html>";
                 return html;
@@ -77,17 +84,25 @@ $@"<!DOCTYPE html>
 </style>
 </head>
 <body>
-<font size='5'><b>{Regex.Replace(this.VOCABULARY_TAG, "\\^(.*?)\\^", "<font color=\"red\">$1</font>")}</b></font><br/>
-<br/>
-{this.MEANING_TAG.Replace(" / ", "<br/>")}<br/>
-<br/>
-{this.ORIGIN_EXP_TAG.Replace(" / ", "<br/>")}<br/>
-<br/>
-(파생어)<br/>
-{this.DERIVATIVE_TAG.Replace(" / ", "<br/>")}<br/>
-<br/>
-(예문)<br/>
+<table>
+<tr>
+<td>
+<b>{Regex.Replace(this.VOCABULARY_TAG, "\\^(.*?)\\^", "<font color=\"red\">$1</font>")}</b>
+</td>
+<td>
+{this.MEANING_TAG.Replace(" / ", "<br/>")}
+</td>
+<td>
+{this.ORIGIN_EXP_TAG.Replace(" / ", "<br/>")}
+</td>
+<td>
+{this.DERIVATIVE_TAG.Replace(" / ", "<br/>")}
+</td>
+<td>
 {Regex.Replace(this.SENTENCE_TAG, "\\^(.*?)\\^", "<font color=\"red\">$1</font>").Replace(" / ", "<br/>  → ")}
+</td>
+</tr>
+</table>
 </body>
 </html>";
                 return html;
