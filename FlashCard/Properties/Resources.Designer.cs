@@ -63,16 +63,6 @@ namespace FlashCard.Properties {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] DrawingVoca {
-            get {
-                object obj = ResourceManager.GetObject("DrawingVoca", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
         internal static byte[] EfficiencyVoca {
             get {
                 object obj = ResourceManager.GetObject("EfficiencyVoca", resourceCulture);
@@ -82,7 +72,13 @@ namespace FlashCard.Properties {
         
         /// <summary>
         ///   body {
-        ///font-family: &quot;RixGo_Pro&quot;, &quot;HelveticaNeue&quot;, Helvetica, Arial, sans-serif;
+        ///font-family: &quot;Segoe UI&quot;, &quot;RixGo_Pro&quot;, &quot;HelveticaNeue&quot;, Helvetica, Arial, sans-serif;
+        ///}
+        ///table {
+        ///    border-collapse: collapse;
+        ///}
+        ///td, th {
+        ///    border: 1px solid;
         ///}과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string style {

@@ -1,9 +1,11 @@
 body {
-font-family: "Segoe UI", "RixGo_Pro", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI", "RixGo_Pro", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-size: 80%;
 }
 table {
     border-collapse: collapse;
 }
-td, th {
-    border: 1px solid;
+td {
+    border: 1px solid lightgray;
+    padding: 5px;
 }

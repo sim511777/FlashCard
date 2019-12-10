@@ -12,12 +12,6 @@ using FlashCard.Properties;
 
 namespace FlashCard {
     public partial class FormMain : Form {
-        // 데크 목록
-        private Tuple<Type, byte[]>[] deckInfos = {
-            Tuple.Create(typeof(EfficiencyVoca[]), Properties.Resources.EfficiencyVoca),
-            //Tuple.Create(typeof(DrawingVoca[]), Properties.Resources.DrawingVoca),
-        };
-        
         // 생성자
         public FormMain() {
             InitializeComponent();
@@ -62,17 +56,21 @@ namespace FlashCard {
         }
 
         private void ReadDeck() {
-            var cards = deckInfos.Select(deckInfo => Voca.ReadDeck(deckInfo.Item1, deckInfo.Item2)).SelectMany(vocas => vocas);
-            var items = cards.Select(card => Tuple.Create(card.GetTitle(), card)).ToArray();
+            var cards = EfficiencyVoca.ReadCards(Resources.EfficiencyVoca);
+            var cardGroups = cards.GroupBy(card => card.DAY_NO + "." + card.PREFIX_GRP);
+            var items = cardGroups.Select(group => Tuple.Create(group.ElementAt(0).GetTitle(), group)).ToArray();
             this.lbxCard.Items.Clear();
             this.lbxCard.Items.AddRange(items);
         }
 
         // 카드 리스트 선택시
         private void lbxCard_SelectedIndexChanged(object sender, EventArgs e) {
-            var item = this.lbxCard.SelectedItem as Tuple<string, Voca>;
-            var card = item.Item2;
-            var html = card.GetHtml();
+            var item = this.lbxCard.SelectedItem as Tuple<string, IGrouping<string, EfficiencyVoca>>;
+            var group = item.Item2;
+            var html =
+                EfficiencyVoca.GetHtmlTop() +
+                string.Join("", group.Select(voca => voca.GetHtmlTableRow()).ToArray());
+                EfficiencyVoca.GetHtmlBottom();
             this.browser.DocumentText = html;
             if (this.historyAdd == true) {
                 HistoryAdd(this.lbxCard.SelectedIndex);
@@ -110,9 +108,8 @@ namespace FlashCard {
 
         // 히스토리 기능
         private void ShowHistory() {
-            return;
-            var histroyTexts = this.cardHistory.Select((cardIdx, idx) => idx == historyPointer ? $"[{cardIdx}]" : $" {cardIdx} ");
-            this.Text = string.Join("-", histroyTexts.ToArray());
+            //var histroyTexts = this.cardHistory.Select((cardIdx, idx) => idx == historyPointer ? $"[{cardIdx}]" : $" {cardIdx} ");
+            //this.Text = string.Join("-", histroyTexts.ToArray());
         }
 
         private LinkedList<int> cardHistory = new LinkedList<int>();
