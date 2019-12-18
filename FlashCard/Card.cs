@@ -35,7 +35,7 @@ namespace FlashCard {
             if (PREFIX_ORD != "0") {
                 return $"{this.VOCABULARY} : {this.MEANING_QUICK}";
             } else {
-                return $"{this.VOCABULARY_TAG} {this.VOCABULARY} : {this.MEANING_TAG}";
+                return $"d{int.Parse(DAY_NO):00} {this.VOCABULARY_TAG} {this.VOCABULARY} : {this.MEANING_TAG}";
             }
         }
 
