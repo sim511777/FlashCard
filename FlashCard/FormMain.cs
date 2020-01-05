@@ -67,9 +67,31 @@ namespace FlashCard {
         private void lbxCard_SelectedIndexChanged(object sender, EventArgs e) {
             var item = this.lbxCard.SelectedItem as Tuple<string, IGrouping<string, EfficiencyVoca>>;
             var group = item.Item2;
+            var origin = group.ElementAt(0);
+            string color = "black";
+            string bgcolor = "white";
+            string derivecolor = "black";
+            if (origin.VOCABULARY_TAG == "[접두사]") {
+                color = "red";
+                bgcolor = "#ffcccc";
+                derivecolor = "darkblue";
+            }
+            else if (origin.VOCABULARY_TAG == "[접미사]") {
+                color = "blue";
+                bgcolor = "#ccccff";
+                derivecolor = "darkgreen";
+            }
+            else if (origin.VOCABULARY_TAG == "[어근]") {
+                color = "green";
+                bgcolor = "#ccffcc";
+                derivecolor = "darkred";
+            }
+            string dayTag = $"<tr><td align=center colspan=2>DAY{int.Parse(origin.DAY_NO):00}-{int.Parse(origin.PREFIX_GRP)+1}</td></tr>\r\n";
             var html =
                 EfficiencyVoca.GetHtmlTop() +
-                string.Join("", group.Select(voca => voca.GetHtmlTableRow()).ToArray());
+                "<table>\r\n" +
+                string.Join("", group.Select(voca => voca.GetHtmlTableRow(color, bgcolor, derivecolor)).ToArray()) +
+                "</table>\r\n" + 
                 EfficiencyVoca.GetHtmlBottom();
             this.browser.DocumentText = html;
             if (this.historyAdd == true) {
