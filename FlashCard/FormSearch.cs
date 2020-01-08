@@ -25,9 +25,11 @@ namespace FlashCard {
             var word = this.tbxWord.Text;
             if (word.Length < 1)
                 return;
-            //var titles = this.frmMain.lbxCard.Items.Cast<Tuple<string, Voca>>().Select(tuple => tuple.Item1);
-            //var items = titles.Select((title, idx) => Tuple.Create(title, idx)).Where(item => item.Item1.Contains(word));
-            //this.lbxResult.Items.AddRange(items.ToArray());
+
+            var groupList = this.frmMain.lbxCard.Items.Cast<Tuple<string, IGrouping<string, EfficiencyVoca>>>();
+            var titles = groupList.SelectMany(group => Tuple.Create(group.Item2, group));
+            var items = titles.Select((title, idx) => Tuple.Create(title, idx)).Where(item => item.Item1.Contains(word));
+            this.lbxResult.Items.AddRange(items.ToArray());
         }
 
         private void lbxResult_SelectedIndexChanged(object sender, EventArgs e) {
