@@ -58,7 +58,7 @@ namespace FlashCard {
         private void ReadDeck() {
             var cards = EfficiencyVoca.ReadCards(Resources.EfficiencyVoca);
             var cardGroups = cards.GroupBy(card => card.DAY_NO + "." + card.PREFIX_GRP);
-            var items = cardGroups.Select(group => Tuple.Create(group.ElementAt(0).GetTitle(), group)).ToArray();
+            var items = cardGroups.Select(group => Tuple.Create(group.ElementAt(0).GetGroupTitle(), group)).ToArray();
             this.lbxCard.Items.Clear();
             this.lbxCard.Items.AddRange(items);
         }

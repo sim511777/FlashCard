@@ -32,12 +32,16 @@ namespace FlashCard {
         public string MEANING_QUICK { get; set; }   // 뜻 빠른
         public string SOUND_ORD { get; set; }       // 
 
-        public string GetTitle() {
+        public string GetSearchTitle() {
             if (PREFIX_ORD != "0") {
-                return $"{this.VOCABULARY} : {this.MEANING_QUICK}";
+                return $"{VOCABULARY}: {MEANING_QUICK}";
             } else {
-                return $"Day{DAY_NO}-{int.Parse(PREFIX_GRP)+1}: {this.VOCABULARY}";
+                return $"{VOCABULARY}: {VOCABULARY_TAG} {MEANING_TAG}";
             }
+        }
+
+        public string GetGroupTitle() {
+            return $"Day{DAY_NO}-{int.Parse(PREFIX_GRP)+1}: {VOCABULARY}";
         }
 
         public static string GetHtmlTop() {
