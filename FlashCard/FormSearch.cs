@@ -26,9 +26,13 @@ namespace FlashCard {
             if (word.Length < 1)
                 return;
 
+            // 메인폼 리스트 박스에서 그룹 리스트 가져옴
             var groupList = this.frmMain.lbxCard.Items.Cast<Tuple<string, IGrouping<string, EfficiencyVoca>>>();
-            var titles = groupList.SelectMany(group => Tuple.Create(group.Item2, group));
-            var items = titles.Select((title, idx) => Tuple.Create(title, idx)).Where(item => item.Item1.Contains(word));
+            // 그룹 리스트 에서 각각의 그룹에 속한 카드타이틀과 구룹번호의 튜플 리스트로 평활화
+            var cardAndGroups = groupList.SelectMany((group, groupIdx) => group.Item2.Select(card => Tuple.Create(card.GetTitle(), groupIdx)));
+            // (카드타이틀, 그룹번호) 에서 카드 타이틀이 검색어를 포함하는것만 필터링
+            var items = cardAndGroups.Where(item => item.Item1.Contains(word));
+            // 서치 리스트 박스에 추가
             this.lbxResult.Items.AddRange(items.ToArray());
         }
 
