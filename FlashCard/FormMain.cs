@@ -94,6 +94,7 @@ namespace FlashCard {
                 "</table>\r\n" + 
                 EfficiencyVoca.GetHtmlBottom();
             this.browser.DocumentText = html;
+            this.Text = group.ElementAt(0).GetCaptionTitle();
             if (this.historyAdd == true) {
                 HistoryAdd(this.lbxCard.SelectedIndex);
             }

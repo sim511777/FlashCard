@@ -36,12 +36,16 @@ namespace FlashCard {
             if (PREFIX_ORD != "0") {
                 return $"{VOCABULARY}: {MEANING_QUICK}";
             } else {
-                return $"{VOCABULARY}: {VOCABULARY_TAG} {MEANING_TAG}";
+                return $"{VOCABULARY_TAG} {VOCABULARY}: {MEANING_TAG}";
             }
         }
 
         public string GetGroupTitle() {
-            return $"Day{DAY_NO}-{int.Parse(PREFIX_GRP)+1}: {VOCABULARY}";
+            return $"Day{DAY_NO}-{int.Parse(PREFIX_GRP)+1}: {VOCABULARY_TAG} {VOCABULARY}";
+        }
+
+        public string GetCaptionTitle() {
+            return $"Flash Card - Day{DAY_NO}-{int.Parse(PREFIX_GRP)+1} {VOCABULARY_TAG} {VOCABULARY}: {MEANING_TAG}";
         }
 
         public static string GetHtmlTop() {
