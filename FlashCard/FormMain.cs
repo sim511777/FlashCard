@@ -57,15 +57,16 @@ namespace FlashCard {
 
         private void ReadDeck() {
             var cards = EfficiencyVoca.ReadCards(Resources.EfficiencyVoca);
-            var cardGroups = cards.GroupBy(card => card.DAY_NO + "." + card.PREFIX_GRP);
-            var items = cardGroups.Select(group => Tuple.Create(group.ElementAt(0).GetGroupTitle(), group)).ToArray();
+            var keyGroupPairs = cards.GroupBy(
+                keySelector: card => card.DAY_NO + "." + card.PREFIX_GRP,
+                resultSelector: (key, group) => Tuple.Create(group.ElementAt(0).GetGroupTitle(), group));
             this.lbxCard.Items.Clear();
-            this.lbxCard.Items.AddRange(items);
+            this.lbxCard.Items.AddRange(keyGroupPairs.ToArray());
         }
 
         // 카드 리스트 선택시
         private void lbxCard_SelectedIndexChanged(object sender, EventArgs e) {
-            var item = this.lbxCard.SelectedItem as Tuple<string, IGrouping<string, EfficiencyVoca>>;
+            var item = this.lbxCard.SelectedItem as Tuple<string, IEnumerable<EfficiencyVoca>>;
             var group = item.Item2;
             var origin = group.ElementAt(0);
             string color = "black";

@@ -11,9 +11,14 @@ using System.Windows.Forms;
 namespace FlashCard {
     public partial class FormSearch : Form {
         FormMain frmMain;
+        private IEnumerable<Tuple<string,int>> cardAndGroups;
         public FormSearch(FormMain frmMain) {
             this.frmMain = frmMain;
             InitializeComponent();
+            // 메인폼 리스트 박스에서 그룹 리스트 가져옴
+            var groupList = this.frmMain.lbxCard.Items.Cast<Tuple<string, IEnumerable<EfficiencyVoca>>>();
+            // 그룹 리스트 에서 각각의 그룹에 속한 카드타이틀과 구룹번호의 튜플 리스트로 평활화, 파생어 까지 포함
+            this.cardAndGroups = groupList.SelectMany((group, groupIdx) => group.Item2.SelectMany(card => card.GetSearchTitles().Select(title => Tuple.Create(title, groupIdx))));
         }
 
         private void FormSearch_FormClosing(object sender, FormClosingEventArgs e) {
@@ -26,12 +31,8 @@ namespace FlashCard {
             if (word.Length < 1)
                 return;
 
-            // 메인폼 리스트 박스에서 그룹 리스트 가져옴
-            var groupList = this.frmMain.lbxCard.Items.Cast<Tuple<string, IGrouping<string, EfficiencyVoca>>>();
-            // 그룹 리스트 에서 각각의 그룹에 속한 카드타이틀과 구룹번호의 튜플 리스트로 평활화
-            var cardAndGroups = groupList.SelectMany((group, groupIdx) => group.Item2.Select(card => Tuple.Create(card.GetSearchTitle(), groupIdx)));
             // (카드타이틀, 그룹번호) 에서 카드 타이틀이 검색어를 포함하는것만 필터링
-            var items = cardAndGroups.Where(item => item.Item1.Contains(word));
+            var items = cardAndGroups.Where(tuple =>tuple.Item1.Contains(word));
             // 서치 리스트 박스에 추가
             this.lbxResult.Items.AddRange(items.ToArray());
         }

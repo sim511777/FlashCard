@@ -40,6 +40,16 @@ namespace FlashCard {
             }
         }
 
+        public IEnumerable<string> GetSearchTitles() {
+            List<string> searchTitles = new List<string>();
+            searchTitles.Add(GetSearchTitle());
+            var subSearchTitles = DERIVATIVE_TAG
+                .Split(new string[]{" / "}, StringSplitOptions.RemoveEmptyEntries)
+                .Select(text => text.Replace("</b>", string.Empty).Replace("<b>", string.Empty));
+            searchTitles.AddRange(subSearchTitles);
+            return searchTitles;
+        }
+
         public string GetGroupTitle() {
             return $"Day{DAY_NO}-{int.Parse(PREFIX_GRP)+1}: {VOCABULARY_TAG} {VOCABULARY}";
         }
