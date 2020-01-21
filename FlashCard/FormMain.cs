@@ -21,6 +21,7 @@ namespace FlashCard {
             browser.Document.Write(String.Empty);
         }
 
+        private IEnumerable<Tuple<string,int>> cardAndGroups;
         private void FormMain_Load(object sender, EventArgs e) {
             // 설정 로드
             var settings = Settings.Load();
@@ -38,6 +39,8 @@ namespace FlashCard {
 
             // 데크 로드
             this.ReadDeck();
+            // 서치 목록 생성
+            this.MakeSearchListItem();
             
             // 카드 리스트 선택
             this.CardListChange(settings.lastIndex + (this.chkAutoChange.Checked ? 1 : 0));
@@ -62,6 +65,13 @@ namespace FlashCard {
                 resultSelector: (key, group) => Tuple.Create(group.ElementAt(0).GetGroupTitle(), group));
             this.lbxCard.Items.Clear();
             this.lbxCard.Items.AddRange(keyGroupPairs.ToArray());
+        }
+
+        private void MakeSearchListItem() {
+            // 메인폼 리스트 박스에서 그룹 리스트 가져옴
+            var groupList = this.lbxCard.Items.Cast<Tuple<string, IEnumerable<EfficiencyVoca>>>();
+            // 그룹 리스트 에서 각각의 그룹에 속한 카드타이틀과 구룹번호의 튜플 리스트로 평활화, 파생어 까지 포함
+            this.cardAndGroups = groupList.SelectMany((group, groupIdx) => group.Item2.SelectMany(card => card.GetSearchTitles().Select(title => Tuple.Create(title, groupIdx))));
         }
 
         // 카드 리스트 선택시
@@ -172,21 +182,25 @@ namespace FlashCard {
             this.HistoryRedo();
         }
 
-
         // 서치 기능
-        public FormSearch frmSearch = null;
-        private void btnSearch_Click(object sender, EventArgs e) {
-            if (frmSearch == null) {
-                this.frmSearch = new FormSearch(this);
-                this.frmSearch.Left = this.Right;
-                this.frmSearch.Top = this.Top;
-                this.frmSearch.Height = this.Height;
-            }
-             if (!this.frmSearch.Visible)
-                this.frmSearch.Show(this);
-             else
-                this.frmSearch.BringToFront();
-             this.frmSearch.WindowState = FormWindowState.Normal;
-         }
+        private void tbxWord_TextChanged(object sender, EventArgs e) {
+            this.lbxResult.Items.Clear();
+            var word = this.tbxWord.Text;
+            if (word.Length < 1)
+                return;
+
+            // (카드타이틀, 그룹번호) 에서 카드 타이틀이 검색어를 포함하는것만 필터링
+            var items = cardAndGroups.Where(tuple =>tuple.Item1.Contains(word));
+            // 서치 리스트 박스에 추가
+            this.lbxResult.Items.AddRange(items.ToArray());
+        }
+
+        private void lbxResult_SelectedIndexChanged(object sender, EventArgs e) {
+            if (this.lbxResult.SelectedItem == null)
+                return;
+            var selItem = (Tuple<string, int>)this.lbxResult.SelectedItem;
+            int vocaIdx = selItem.Item2;
+            this.CardListChange(vocaIdx);
+        }
     }
 }
