@@ -23,6 +23,7 @@ namespace FlashCard {
         public string PREFIX_GRP { get; set; }      // 어원 그룹 No
         public string PREFIX_ORD { get; set; }      // 어원 단어 순서 No.
         public string VOCABULARY { get; set; }      // 단어
+        public string PRONUNCIATION { get; set; }   // 발음
         public string ORIGIN_APPENDIX { get; set; } // 어원 변화형
         public string VOCABULARY_TAG { get; set; }  // 단어 태그
         public string MEANING_TAG { get; set; }     // 뜻 태그
@@ -94,12 +95,13 @@ $@"</body>
                 return html;
             } else {
                 string entry = $"<font size=5 color={color}>" + Regex.Replace(this.VOCABULARY_TAG, "\\^(.*?)\\^", "<b>$1</b>") + $"</font>";
+                string pronun = (this.PRONUNCIATION == "") ? "" : " [" + this.PRONUNCIATION + "]";
                 string origin = (this.ORIGIN_EXP_TAG == "") ? "" : "<br/><font size=2>" + this.ORIGIN_EXP_TAG.Replace(" / ", "<br/>") + "</font>";
                 string meaning = this.MEANING_TAG.Replace(" / ", "<br/>");
                 string derivative = (this.DERIVATIVE_TAG == "") ? "" : "<hr/>" + $"<font color={derivecolor}>" + this.DERIVATIVE_TAG.Replace(" / ", "<br/>") + "</font>";
                 string sentence = (this.SENTENCE_TAG == "") ? "" : "<hr/>" + Regex.Replace(this.SENTENCE_TAG, "\\^(.*?)\\^", "<b>$1</b>").Replace(" / ", "<br/>  → ");
                 
-                string html = $@"<tr valign=top><td>{entry}{origin}</td><td>{meaning}{derivative}{sentence}</td></tr>";
+                string html = $@"<tr valign=top><td>{entry}{pronun}{origin}</td><td>{meaning}{derivative}{sentence}</td></tr>";
                 return html;
             }
         }
