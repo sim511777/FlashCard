@@ -33,8 +33,6 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnUndo = new System.Windows.Forms.Button();
             this.btnRedo = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -44,8 +42,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.Panel13.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -83,7 +79,7 @@
             this.browser.Location = new System.Drawing.Point(270, 0);
             this.browser.MinimumSize = new System.Drawing.Size(20, 20);
             this.browser.Name = "browser";
-            this.browser.Size = new System.Drawing.Size(807, 614);
+            this.browser.Size = new System.Drawing.Size(809, 616);
             this.browser.TabIndex = 4;
             // 
             // lbxCard
@@ -95,7 +91,7 @@
             this.lbxCard.ItemHeight = 15;
             this.lbxCard.Location = new System.Drawing.Point(3, 32);
             this.lbxCard.Name = "lbxCard";
-            this.lbxCard.Size = new System.Drawing.Size(253, 458);
+            this.lbxCard.Size = new System.Drawing.Size(253, 460);
             this.lbxCard.TabIndex = 10;
             this.lbxCard.ValueMember = "Item2";
             this.lbxCard.SelectedIndexChanged += new System.EventHandler(this.lbxCard_SelectedIndexChanged);
@@ -108,7 +104,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnNext, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnPrev, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 490);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 492);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -176,32 +172,11 @@
             this.btnRedo.UseVisualStyleBackColor = true;
             this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1079, 616);
-            this.panel2.TabIndex = 8;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.browser);
-            this.panel3.Controls.Add(this.splitter1);
-            this.panel3.Controls.Add(this.tabControl1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1079, 616);
-            this.panel3.TabIndex = 9;
-            // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(267, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 614);
+            this.splitter1.Size = new System.Drawing.Size(3, 616);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
             // 
@@ -213,7 +188,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(267, 614);
+            this.tabControl1.Size = new System.Drawing.Size(267, 616);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPage1
@@ -224,7 +199,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(259, 588);
+            this.tabPage1.Size = new System.Drawing.Size(259, 590);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Contents";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -268,7 +243,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1079, 616);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.browser);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.tabControl1);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Flash Card";
@@ -278,8 +255,6 @@
             this.Panel13.ResumeLayout(false);
             this.Panel13.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -293,13 +268,11 @@
       private System.Windows.Forms.Button btnPrev;
       private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.WebBrowser browser;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel Panel13;
         private System.Windows.Forms.CheckBox chkAutoChange;
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.Button btnRedo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         public System.Windows.Forms.ListBox lbxCard;
         private System.Windows.Forms.Splitter splitter1;
