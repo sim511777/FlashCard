@@ -21,7 +21,7 @@ namespace FlashCard {
             browser.Document.Write(String.Empty);
         }
 
-        private IEnumerable<Tuple<string,int>> cardAndGroups;
+        private List<Tuple<string,int>> cardAndGroups;
         private void FormMain_Load(object sender, EventArgs e) {
             // 설정 로드
             var settings = Settings.Load();
@@ -71,7 +71,7 @@ namespace FlashCard {
             // 메인폼 리스트 박스에서 그룹 리스트 가져옴
             var groupList = this.lbxCard.Items.Cast<Tuple<string, IEnumerable<EfficiencyVoca>>>();
             // 그룹 리스트 에서 각각의 그룹에 속한 카드타이틀과 구룹번호의 튜플 리스트로 평활화, 파생어 까지 포함
-            this.cardAndGroups = groupList.SelectMany((group, groupIdx) => group.Item2.SelectMany(card => card.GetSearchTitles().Select(title => Tuple.Create(title, groupIdx))));
+            this.cardAndGroups = groupList.SelectMany((group, groupIdx) => group.Item2.SelectMany(card => card.GetSearchTitles().Select(title => Tuple.Create(title, groupIdx)))).ToList();
         }
 
         // 카드 리스트 선택시
@@ -190,7 +190,7 @@ namespace FlashCard {
                 return;
 
             // (카드타이틀, 그룹번호) 에서 카드 타이틀이 검색어를 포함하는것만 필터링
-            var items = cardAndGroups.Where(tuple =>tuple.Item1.Contains(word));
+            var items = cardAndGroups.Where(tuple =>tuple.Item1.Contains(word)).OrderBy(tuple => tuple.Item1);
             // 서치 리스트 박스에 추가
             this.lbxResult.Items.AddRange(items.ToArray());
         }

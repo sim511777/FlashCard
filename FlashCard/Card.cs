@@ -35,9 +35,9 @@ namespace FlashCard {
 
         public string GetSearchTitle() {
             if (PREFIX_ORD != "0") {
-                return $"{VOCABULARY}: {MEANING_QUICK}";
+                return $"{VOCABULARY}: {MEANING_TAG.Replace(" / ", " ")}";
             } else {
-                return $"{VOCABULARY_TAG} {VOCABULARY}: {MEANING_TAG}";
+                return $"{VOCABULARY}: {VOCABULARY_TAG} {MEANING_TAG}";
             }
         }
 
@@ -46,7 +46,7 @@ namespace FlashCard {
             searchTitles.Add(GetSearchTitle());
             var subSearchTitles = DERIVATIVE_TAG
                 .Split(new string[]{" / "}, StringSplitOptions.RemoveEmptyEntries)
-                .Select(text => text.Replace("</b>", string.Empty).Replace("<b>", string.Empty));
+                .Select(text => text.Replace("^ ", ": ").Replace("^", string.Empty));
             searchTitles.AddRange(subSearchTitles);
             return searchTitles;
         }
