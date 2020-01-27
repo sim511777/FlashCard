@@ -98,7 +98,7 @@ $@"</body>
                 string pronun = (this.PRONUNCIATION == "") ? "" : " [" + this.PRONUNCIATION + "]";
                 string origin = (this.ORIGIN_EXP_TAG == "") ? "" : "<br/><font size=2>" + this.ORIGIN_EXP_TAG.Replace(" / ", "<br/>") + "</font>";
                 string meaning = this.MEANING_TAG.Replace(" / ", "<br/>");
-                string derivative = (this.DERIVATIVE_TAG == "") ? "" : "<hr/>" + $"<font color={derivecolor}>" + this.DERIVATIVE_TAG.Replace(" / ", "<br/>") + "</font>";
+                string derivative = (this.DERIVATIVE_TAG == "") ? "" : "<hr/>" + $"<font color={derivecolor}>" + Regex.Replace(this.DERIVATIVE_TAG, "\\^(.*?)\\^", "<b>$1</b>").Replace(" / ", "<br/>") + "</font>";
                 string sentence = (this.SENTENCE_TAG == "") ? "" : "<hr/>" + Regex.Replace(this.SENTENCE_TAG, "\\^(.*?)\\^", "<b>$1</b>").Replace(" / ", "<br/>  → ");
                 
                 string html = $@"<tr valign=top><td>{entry}{pronun}{origin}</td><td>{meaning}{derivative}{sentence}</td></tr>";
