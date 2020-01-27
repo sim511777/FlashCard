@@ -185,7 +185,7 @@ namespace FlashCard {
         // 서치 기능
         private void tbxWord_TextChanged(object sender, EventArgs e) {
             this.lbxResult.Items.Clear();
-            var word = this.tbxWord.Text;
+            var word = this.tbxWord.Text.Trim();
             if (word.Length < 1)
                 return;
 
